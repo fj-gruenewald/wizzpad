@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Wizard Tracker – Mockups v1</title>
+<style>
+:root{--bg:#14121f;--card:#1f1b30;--card2:#2a2540;--txt:#ece8f7;--mut:#9a93b5;--acc:#8b6cff;--gold:#f2c14e;--ok:#4cc38a;--bad:#ff6b6b;--cloud:#7cc7ff;--bomb:#ff8a3d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#0b0a12;color:var(--txt);padding:32px}
+h1{font-size:22px;margin-bottom:6px}
+.intro{color:var(--mut);margin-bottom:28px;max-width:900px;line-height:1.5}
+.grid{display:flex;flex-wrap:wrap;gap:36px}
+.wrap{width:300px}
+.label{font-weight:600;margin-bottom:4px}
+.note{color:var(--mut);font-size:12px;margin-bottom:10px;min-height:32px;line-height:1.35}
+.phone{width:300px;height:620px;background:var(--bg);border-radius:32px;border:8px solid #000;overflow:hidden;position:relative;display:flex;flex-direction:column;box-shadow:0 10px 30px #0008}
+.status{height:22px;font-size:10px;color:var(--mut);display:flex;justify-content:space-between;padding:4px 16px}
+.top{display:flex;align-items:center;gap:10px;padding:8px 14px 10px}
+.top h2{font-size:17px;flex:1}
+.ic{width:28px;height:28px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:13px}
+.body{flex:1;overflow:hidden;padding:0 12px 12px;display:flex;flex-direction:column;gap:8px}
+.card{background:var(--card);border-radius:14px;padding:10px 12px}
+.row{display:flex;align-items:center;gap:8px}
+.sp{flex:1}
+.mut{color:var(--mut);font-size:11px}
+.big{font-size:22px;font-weight:700}
+.btn{background:var(--acc);color:#fff;border-radius:12px;padding:11px;text-align:center;font-weight:600;font-size:14px}
+.btn.sec{background:var(--card2);color:var(--txt)}
+.btn.gold{background:var(--gold);color:#222}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#111;flex:none}
+.a1{background:#f2c14e}.a2{background:#7cc7ff}.a3{background:#4cc38a}.a4{background:#ff8fb1}.a5{background:#c3a6ff}
+.step{display:flex;align-items:center;gap:6px}
+.step b{width:30px;height:30px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:16px}
+.step span{width:26px;text-align:center;font-size:20px;font-weight:700}
+.chip{font-size:10px;padding:3px 7px;border-radius:20px;background:var(--card2);color:var(--mut)}
+.chip.on{background:var(--acc);color:#fff}
+.chip.cl{background:#1e3448;color:var(--cloud)}
+.chip.bo{background:#40261a;color:var(--bomb)}
+.hint{font-size:11px;padding:7px 10px;border-radius:10px;background:#2b2440;color:var(--mut)}
+.hint.warn{background:#3d2a1a;color:var(--bomb)}
+.hint.ok{background:#173326;color:var(--ok)}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th,td{padding:4px 2px;text-align:center}
+th{color:var(--mut);font-weight:500}
+td.r{color:var(--mut)}
+.pos{color:var(--ok)}.neg{color:var(--bad)}
+.cur{background:#2c2550}
+.tot td{font-weight:700;font-size:13px;border-top:1px solid #3a3358}
+.nav{display:flex;justify-content:space-around;padding:8px 0 12px;border-top:1px solid #2a2540;font-size:10px;color:var(--mut)}
+.nav div{text-align:center}.nav .on{color:var(--acc)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-radius:22px 22px 0 0;padding:14px;display:flex;flex-direction:column;gap:9px;box-shadow:0 -10px 30px #000a}
+.dim{position:absolute;inset:0;background:#000a}
+.bar{height:8px;border-radius:4px;background:var(--card2);overflow:hidden}.bar i{display:block;height:100%;background:var(--acc)}
+.spark{display:flex;align-items:flex-end;gap:3px;height:60px}.spark i{flex:1;background:var(--acc);border-radius:2px 2px 0 0}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.drop{border:2px dashed #3a3358;border-radius:14px;padding:22px;text-align:center;color:var(--mut);font-size:12px}
+.tog{width:34px;height:20px;border-radius:10px;background:var(--acc);position:relative}.tog:after{content:"";position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.tog.off{background:var(--card2)}.tog.off:after{left:2px;right:auto}
+
+/* Namenszeile: lange Namen kürzen, Rollen als Badge am Avatar + in der Unterzeile */
+.av{position:relative}
+.bd{position:absolute;right:-6px;bottom:-6px;width:17px;height:17px;border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;border:2px solid var(--card)}
+.bd.st{background:var(--acc);color:#fff}.bd.dl{background:var(--gold);color:#111}
+.who{flex:1;min-width:0}
+.who .mut{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nm{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.role-st{color:var(--acc);font-weight:600}.role-dl{color:var(--gold);font-weight:600}
+
+/* ===== Theme-Umschalter ===== */
+.themebar{position:sticky;top:0;z-index:10;display:flex;gap:8px;align-items:center;padding:10px 0 18px;background:inherit}
+.themebar button{font:inherit;font-size:13px;padding:7px 14px;border-radius:20px;border:1px solid #444;background:#1f1b30;color:#ece8f7;cursor:pointer}
+.themebar button.on{background:#8b6cff;border-color:#8b6cff;color:#fff}
+
+/* ===== MATERIAL 3 (Material You), Light + Dark ===== */
+body.m3l,body.m3d{font-family:Roboto,"Noto Sans","Segoe UI",system-ui,sans-serif}
+body.m3l{background:#e7e0ec;color:#1d1b20;--bg:#fef7ff;--card:#f3edf7;--card2:#e8def8;--txt:#1d1b20;--mut:#49454f;--acc:#6750a4;--gold:#7d5260;--ok:#1b6c3a;--bad:#b3261e;--cloud:#2b6a9a;--bomb:#a5541b;--onacc:#fff;--tonal:#e8def8;--ontonal:#1d192b;--nav:#f3edf7;--ind:#e8def8;--outline:#79747e}
+body.m3d{background:#0f0d13;color:#e6e0e9;--bg:#141218;--card:#211f26;--card2:#2b2930;--txt:#e6e0e9;--mut:#cac4d0;--acc:#d0bcff;--gold:#efb8c8;--ok:#7fd99a;--bad:#f2b8b5;--cloud:#9ecaff;--bomb:#ffb68a;--onacc:#381e72;--tonal:#4a4458;--ontonal:#e8def8;--nav:#211f26;--ind:#4a4458;--outline:#938f99}
+body.m3l .themebar,body.m3d .themebar{background:inherit}
+body.m3l .phone,body.m3d .phone{border:6px solid #1d1b20;border-radius:30px;box-shadow:0 4px 12px #0003}
+body:is(.m3l,.m3d) .top h2{font-weight:400;font-size:19px}
+body:is(.m3l,.m3d) .card{border-radius:12px;background:var(--card)}
+body:is(.m3l,.m3d) .card[style*="border:1px solid"]{border:none!important;background:var(--tonal);}
+body:is(.m3l,.m3d) .btn{border-radius:20px;background:var(--acc);color:var(--onacc);font-weight:500;letter-spacing:.01em;padding:10px}
+body:is(.m3l,.m3d) .btn.gold{background:var(--tonal);color:var(--ontonal)}
+body:is(.m3l,.m3d) .btn.sec{background:transparent;color:var(--acc);border:1px solid var(--outline)}
+body:is(.m3l,.m3d) .chip{border-radius:8px;background:transparent;border:1px solid var(--outline);color:var(--mut)}
+body:is(.m3l,.m3d) .chip.on{background:var(--tonal);color:var(--ontonal);border-color:var(--tonal)}
+body:is(.m3l,.m3d) .hint{border-radius:12px;background:var(--card2);color:var(--txt)}
+body.m3l .hint.warn{background:#ffdbcb;color:#5c1a00}body.m3d .hint.warn{background:#6b3b14;color:#ffdbcb}
+body.m3l .hint.ok{background:#c4eed0;color:#00210e}body.m3d .hint.ok{background:#1f5132;color:#c4eed0}
+body:is(.m3l,.m3d) .step b{background:var(--tonal);color:var(--ontonal);border-radius:50%}
+body:is(.m3l,.m3d) .ic{background:transparent;color:var(--mut)}
+body:is(.m3l,.m3d) .sheet{border-radius:28px 28px 0 0;background:var(--card)}
+body:is(.m3l,.m3d) .sheet:before{content:"";display:block;width:32px;height:4px;border-radius:2px;background:var(--outline);margin:-4px auto 4px;opacity:.5}
+body.m3l .dim{background:#0006}body.m3d .dim{background:#000a}
+body:is(.m3l,.m3d) .nav{background:var(--nav);border-top:none}
+body:is(.m3l,.m3d) .nav .on{color:var(--txt);font-weight:600}
+body:is(.m3l,.m3d) .nav .on{background:linear-gradient(var(--ind),var(--ind)) center 0/48px 24px no-repeat;border-radius:12px}
+body:is(.m3l,.m3d) .tog{background:var(--acc);height:22px;width:38px;border-radius:11px}
+body:is(.m3l,.m3d) .tog:after{background:var(--onacc);top:3px;right:3px}
+body:is(.m3l,.m3d) .tog.off{background:var(--card2);outline:2px solid var(--outline);outline-offset:-2px}
+body:is(.m3l,.m3d) .tog.off:after{background:var(--outline);width:12px;height:12px;top:5px;left:5px}
+body:is(.m3l,.m3d) .cur{background:var(--tonal)}
+body:is(.m3l,.m3d) .tot td{border-top:1px solid var(--outline)}
+body:is(.m3l,.m3d) .bar{background:var(--card2)}
+body:is(.m3l,.m3d) .bd{border-color:var(--bg)}
+body:is(.m3l,.m3d) .bd.st{color:var(--onacc)}
+body:is(.m3l,.m3d) .av{color:#1d1b20}
+body.m3l [style*="background:#1e3448"]{background:#d1e4ff!important}body.m3l [style*="background:#3a3020"]{background:#ffd8e4!important}body.m3l [style*="background:#40261a"]{background:#ffdbcb!important}
+body.m3l .chip.cl{background:#d1e4ff;color:#001d36;border:none}body.m3l .chip.bo{background:#ffdbcb;color:#5c1a00;border:none}
+body.m3d .chip.cl{background:#00497d;color:#d1e4ff;border:none}body.m3d .chip.bo{background:#6b3b14;color:#ffdbcb;border:none}
+body.m3l .drop,body.m3d .drop{border-radius:16px;border-color:var(--outline)}
+
+/* ===== Dynamic Color: Farben aus dem Hintergrundbild (simuliert über Seed-Farben) ===== */
+body.m3l.dyn-green{--acc:#386a20;--tonal:#d7e8cd;--ontonal:#121f0e;--card:#eff2e8;--card2:#dfe4d7;--bg:#f8faf0;--nav:#eff2e8;--ind:#d7e8cd;--gold:#55624c;background:#dfe6d5}
+body.m3d.dyn-green{--acc:#9cd67d;--onacc:#0c3900;--tonal:#3a4b33;--ontonal:#d7e8cd;--card:#1e201a;--card2:#282b24;--bg:#11140e;--nav:#1e201a;--ind:#3a4b33;--gold:#bccbb0}
+body.m3l.dyn-blue{--acc:#0061a4;--tonal:#d1e4ff;--ontonal:#001d36;--card:#eef3fa;--card2:#dde3ea;--bg:#f8f9ff;--nav:#eef3fa;--ind:#d1e4ff;--gold:#535f70;background:#dbe2ec}
+body.m3d.dyn-blue{--acc:#9ecaff;--onacc:#003258;--tonal:#3b4858;--ontonal:#d7e3f7;--card:#1d2024;--card2:#272a2f;--bg:#111418;--nav:#1d2024;--ind:#3b4858;--gold:#bbc7db}
+body.m3l.dyn-orange{--acc:#8f4c00;--tonal:#ffdcc2;--ontonal:#2e1500;--card:#fcefe6;--card2:#f0e0d5;--bg:#fff8f5;--nav:#fcefe6;--ind:#ffdcc2;--gold:#735a48;background:#eee0d6}
+body.m3d.dyn-orange{--acc:#ffb77c;--onacc:#4c2700;--tonal:#5b4130;--ontonal:#ffdcc2;--card:#231a14;--card2:#2e241d;--bg:#19120c;--nav:#231a14;--ind:#5b4130;--gold:#e4bfa8}
+.themebar .sw{width:22px;height:22px;border-radius:50%;padding:0;border:2px solid #0000}
+.themebar .sw.on{border-color:#fff;outline:2px solid #000}
+
+</style>
+</head>
+<body class="m3l">
+<h1>Wizard Tracker – Mockups</h1>
+<p class="intro">Entwurf aller Screens. Ziele: wenig Tippen am Tisch, Wolke und Bombe direkt in der Runde erfassen, Import aus Wizard Block, Profile und erweiterte Statistiken. Keine Werbung, alles offline. Design: Material 3 mit Light, Dark und Dynamic Color (Farben aus dem Hintergrundbild, hier mit drei Beispielfarben simuliert).</p>
+<div class="themebar"><b>Material 3:</b>
+<button class="on" data-m="m3l">☀ Light</button><button data-m="m3d">☾ Dark</button>
+<span style="margin-left:14px;font-weight:600">Dynamic Color:</span>
+<button class="sw on" data-d="" title="Aus (Standard-Lila)" style="background:#6750a4"></button>
+<button class="sw" data-d="dyn-green" title="Hintergrundbild grün" style="background:#386a20"></button>
+<button class="sw" data-d="dyn-blue" title="Hintergrundbild blau" style="background:#0061a4"></button>
+<button class="sw" data-d="dyn-orange" title="Hintergrundbild orange" style="background:#8f4c00"></button>
+</div>
+<script>let M='m3l',D='';function ap(){document.body.className=M+' '+D;document.querySelectorAll('.themebar [data-m]').forEach(b=>b.classList.toggle('on',b.dataset.m===M));document.querySelectorAll('.themebar [data-d]').forEach(b=>b.classList.toggle('on',b.dataset.d===D))}
+document.addEventListener('click',e=>{const b=e.target.closest('.themebar button');if(!b)return;if(b.dataset.m)M=b.dataset.m;if(b.dataset.d!==undefined)D=b.dataset.d;ap()});addEventListener('DOMContentLoaded',ap)</script>
+<div class="grid">
+
+<!-- 1 Start -->
+<div class="wrap"><div class="label">1 · Start</div><div class="note">Laufendes Spiel fortsetzen, neues Spiel mit einem Tap, letzte Partien.</div>
+<div class="phone"><div class="status"><span>20:14</span><span>●●●</span></div>
+<div class="top"><h2>🧙 Wizard Tracker</h2><div class="ic">⚙</div></div>
+<div class="body">
+ <div class="card" style="border:1px solid var(--acc)"><div class="mut">LAUFENDES SPIEL</div><div class="row" style="margin:6px 0"><b>Runde 10 / 15</b><span class="sp"></span><span class="chip">⏱ 1:12 h</span></div>
+ <div class="row"><div class="av a1">F</div><div class="av a2">L</div><div class="av a3">M</div><div class="av a4">J</div><span class="sp"></span><span class="mut">Lena beginnt · 🃏 Alex</span></div>
+ <div class="btn" style="margin-top:10px">Weiterspielen</div></div>
+ <div class="btn gold">＋ Neues Spiel</div>
+ <div class="mut" style="margin-top:6px">LETZTE SPIELE</div>
+ <div class="card row"><span>🏆</span><div class="sp"><b>Alex</b> 210<div class="mut">Sa, 07.11. · 5 Spieler · ⏱ 2:05 h</div></div><span class="mut">›</span></div>
+ <div class="card row"><span>🏆</span><div class="sp"><b>Max</b> 180<div class="mut">Fr, 30.10. · 4 Spieler</div></div><span class="mut">›</span></div>
+ <div class="card row"><span>🏆</span><div class="sp"><b>Lena</b> 230<div class="mut">So, 25.10. · 3 Spieler</div></div><span class="mut">›</span></div>
+</div>
+<div class="nav"><div class="on">🏠<br>Start</div><div>👥<br>Spieler</div><div>📊<br>Statistik</div><div>🕘<br>Verlauf</div><div>📖<br>Wissen</div></div>
+</div></div>
+
+<!-- 2 Neues Spiel -->
+<div class="wrap"><div class="label">2 · Neues Spiel</div><div class="note">Spieler in Sitzreihenfolge antippen. Wer zuerst gewählt wird, sagt in Runde 1 zuerst an. Danach rotiert die Reihenfolge jede Runde um einen Platz.</div>
+<div class="phone"><div class="status"><span>20:14</span><span>●●●</span></div>
+<div class="top"><div class="ic">←</div><h2>Neues Spiel</h2></div>
+<div class="body">
+ <div class="mut">SPIELER (Reihenfolge = Sitzreihenfolge, ziehen zum Ändern)</div>
+ <div class="card row"><span class="mut">≡</span><div class="av a1">F<span class="bd st">▶</span></div><span class="who"><span class="nm">Alex</span><div class="mut"><span class="role-st">beginnt</span> in Runde 1</div></span><span class="chip">1</span></div>
+ <div class="card row"><span class="mut">≡</span><div class="av a2">L</div><span class="sp">Lena</span><span class="chip">2</span></div>
+ <div class="card row"><span class="mut">≡</span><div class="av a3">M</div><span class="sp">Max</span><span class="chip">3</span></div>
+ <div class="card row"><span class="mut">≡</span><div class="av a4">J<span class="bd dl">🃏</span></div><span class="who"><span class="nm">Jonas</span><div class="mut"><span class="role-dl">Dealer</span> in Runde 1</div></span><span class="chip">4</span></div>
+ <div class="row" style="flex-wrap:wrap;gap:6px"><span class="chip">+ Sarah</span><span class="chip">+ Tom</span><span class="chip">+ Neu</span></div>
+ <div class="mut" style="margin-top:4px">REGELN</div>
+ <div class="card row"><span class="sp">Jubiläumsedition</span><div class="tog"></div></div>
+ <div class="card row"><span class="sp">Variante</span><span class="mut">Plus/minus Eins ›</span></div>
+ <div class="card row"><span class="sp">Runden</span><span class="chip">10</span><span class="chip">12</span><span class="chip on">15 max</span><span class="chip">offen</span></div>
+ <div class="btn gold">Spiel starten</div>
+</div></div></div>
+
+<!-- 3 Ansagen -->
+<div class="wrap"><div class="label">3 · Runde: Ansagen</div><div class="note">Liste in Ansage-Reihenfolge: oben, wer beginnt (▶), unten der Dealer (🃏). Die Rolle steht als Badge am Avatar und in der Unterzeile, nie neben dem Namen. Lange Namen werden mit „…“ gekürzt (Beispiel: Max).</div>
+<div class="phone"><div class="status"><span>20:31</span><span>●●●</span></div>
+<div class="top"><div class="ic">☰</div><h2>Runde 10 · Ansagen</h2><span class="chip">⏱ 1:12</span></div>
+<div class="body">
+ <div class="hint">▶ <b style="color:var(--txt)">Lena beginnt</b> · 🃏 Dealer: Alex</div>
+ <div class="card row" style="border:1px solid var(--acc)"><div class="av a2">L<span class="bd st">▶</span></div><span class="who"><span class="nm">Lena</span><div class="mut"><span class="role-st">beginnt</span> · 140 Pkt</div></span><div class="step"><b>−</b><span>2</span><b>＋</b></div></div>
+ <div class="card row"><div class="av a3">M</div><span class="who"><span class="nm">Maximilian-Alexander von Berg</span><div class="mut">90 Pkt</div></span><div class="step"><b>−</b><span>3</span><b>＋</b></div></div>
+ <div class="card row"><div class="av a4">J</div><span class="sp">Jonas<div class="mut">60 Pkt</div></span><div class="step"><b>−</b><span>1</span><b>＋</b></div></div>
+ <div class="card row" style="border:1px solid var(--gold)"><div class="av a1">F<span class="bd dl">🃏</span></div><span class="who"><span class="nm">Alex</span><div class="mut"><span class="role-dl">Dealer</span> · 120 Pkt</div></span><div class="step"><b>−</b><span>?</span><b>＋</b></div></div>
+ <div class="hint warn">Summe 6 von 10 · Alex darf nicht 4 ansagen</div>
+ <div class="mut" style="text-align:center">Nächste Runde: Max beginnt · 🃏 Lena</div>
+ <div class="sp"></div>
+ <div class="btn">Ansagen fertig → Stiche</div>
+</div></div></div>
+
+<!-- 4 Stiche + Wolke/Bombe -->
+<div class="wrap"><div class="label">4 · Runde: Stiche</div><div class="note">Stiche per +/−. Wolke und Bombe sind eigene Tasten in der Runde. Die Wolke-Korrektur ist direkt an der Ansage sichtbar.</div>
+<div class="phone"><div class="status"><span>20:44</span><span>●●●</span></div>
+<div class="top"><div class="ic">☰</div><h2>Runde 10 · Stiche</h2><span class="chip">Trumpf ♥</span></div>
+<div class="body">
+ <div class="row" style="gap:6px"><div class="btn sec sp" style="color:var(--cloud);padding:8px">☁ Wolke</div><div class="btn sec sp" style="color:var(--bomb);padding:8px">💣 Bombe</div></div>
+ <div class="card row"><div class="av a2">L<span class="bd st">▶</span></div><span class="who"><span class="nm">Lena</span><div class="mut"><span class="role-st">beginnt</span> · Ansage 2</div></span><div class="step"><b>−</b><span>2</span><b>＋</b></div><span class="pos">✓</span></div>
+ <div class="card row"><div class="av a3">M</div><span class="sp">Max<div class="mut">Ansage <s>3</s> → <span style="color:var(--cloud)">4 ☁</span></div></span><div class="step"><b>−</b><span>4</span><b>＋</b></div><span class="pos">✓</span></div>
+ <div class="card row"><div class="av a4">J</div><span class="sp">Jonas<div class="mut">Ansage 1</div></span><div class="step"><b>−</b><span>0</span><b>＋</b></div><span class="neg">✗</span></div>
+ <div class="card row"><div class="av a1">F<span class="bd dl">🃏</span></div><span class="who"><span class="nm">Alex</span><div class="mut"><span class="role-dl">Dealer</span> · Ansage 3</div></span><div class="step"><b>−</b><span>3</span><b>＋</b></div><span class="pos">✓</span></div>
+ <div class="hint warn">💣 1 Bombe · 9 von 9 Stichen verteilt ✓</div>
+ <div class="sp"></div>
+ <div class="btn">Runde abschließen</div>
+</div></div></div>
+
+<!-- 5 Wolke Sheet -->
+<div class="wrap"><div class="label">5 · Wolke spielen</div><div class="note">Offizielle Regel: Wer den Stich mit der Wolke gewinnt, ändert die eigene Ansage um +1 oder −1. Zwei Taps, wird im Verlauf und in der Statistik markiert.</div>
+<div class="phone"><div class="status"><span>20:40</span><span>●●●</span></div>
+<div class="top"><div class="ic">☰</div><h2>Runde 10 · Stiche</h2></div>
+<div class="body"><div class="card" style="height:60px"></div><div class="card" style="height:60px"></div><div class="card" style="height:60px"></div></div>
+<div class="dim"></div>
+<div class="sheet">
+ <div class="row"><b style="color:var(--cloud)">☁ Wolke</b><span class="sp"></span><span class="mut">✕</span></div>
+ <div class="mut">Wer hat den Stich mit der Wolke gewonnen?</div>
+ <div class="row" style="justify-content:space-between"><div class="av a2">L</div><div class="av a3" style="outline:3px solid var(--cloud)">M</div><div class="av a4">J</div><div class="av a1">F</div></div>
+ <div class="mut">Max: Ansage 3 ändern auf …</div>
+ <div class="row" style="gap:8px"><div class="btn sec sp big">2<div class="mut">−1</div></div><div class="btn sp big" style="background:var(--cloud);color:#111">4<div style="font-size:11px">+1</div></div></div>
+ <div class="btn">Übernehmen</div>
+</div></div></div>
+
+<!-- 6 Bombe Sheet -->
+<div class="wrap"><div class="label">6 · Bombe</div><div class="note">Ein Tap: Der Stich zählt für niemanden. Die App erwartet dann einen Stich weniger.</div>
+<div class="phone"><div class="status"><span>20:41</span><span>●●●</span></div>
+<div class="top"><div class="ic">☰</div><h2>Runde 10 · Stiche</h2></div>
+<div class="body"><div class="card" style="height:60px"></div><div class="card" style="height:60px"></div><div class="card" style="height:60px"></div></div>
+<div class="dim"></div>
+<div class="sheet">
+ <div class="row"><b style="color:var(--bomb)">💣 Bombe</b><span class="sp"></span><span class="mut">✕</span></div>
+ <div class="mut">Wer hat die Bombe gespielt? (optional, für die Statistik)</div>
+ <div class="mut" style="font-size:10px">Wolke + Bombe im selben Stich: Die Ansage bleibt unverändert.</div>
+ <div class="row" style="justify-content:space-between"><div class="av a2">L</div><div class="av a3">M</div><div class="av a4" style="outline:3px solid var(--bomb)">J</div><div class="av a1">F</div></div>
+ <div class="hint warn">Zu verteilende Stiche: 10 → 9</div>
+ <div class="btn" style="background:var(--bomb)">Bombe eintragen</div>
+</div></div></div>
+
+<!-- 7 Punktetabelle -->
+<div class="wrap"><div class="label">7 · Punktetabelle</div><div class="note">Klassischer Block zum Wischen. Ansage/Stiche klein, Punkte groß. Antippen = Runde bearbeiten.</div>
+<div class="phone"><div class="status"><span>20:46</span><span>●●●</span></div>
+<div class="top"><div class="ic">←</div><h2>Punkte</h2><div class="ic">📈</div></div>
+<div class="body">
+<div class="card" style="padding:6px">
+<table>
+<tr><th>R</th><th><div class="av a1" style="margin:auto;width:22px;height:22px">F</div></th><th><div class="av a2" style="margin:auto;width:22px;height:22px">L</div></th><th><div class="av a3" style="margin:auto;width:22px;height:22px">M</div></th><th><div class="av a4" style="margin:auto;width:22px;height:22px">J</div></th></tr>
+<tr><td class="r">1</td><td class="pos">30</td><td class="pos">20</td><td class="neg">-10</td><td class="pos">20</td></tr>
+<tr><td class="r">2</td><td class="pos">60</td><td class="pos">50</td><td class="pos">20</td><td class="neg">10</td></tr>
+<tr><td class="r">3</td><td class="neg">50</td><td class="pos">90</td><td class="pos">50</td><td class="pos">40</td></tr>
+<tr><td class="r">4</td><td class="pos">80</td><td class="neg">70</td><td class="pos">90</td><td class="neg">30</td></tr>
+<tr><td class="r">5</td><td class="pos">110</td><td class="pos">100</td><td class="neg">80</td><td class="pos">60</td></tr>
+<tr><td class="r">6 💣</td><td class="neg">90</td><td class="pos">130</td><td class="pos">110</td><td class="neg">40</td></tr>
+<tr><td class="r">7</td><td class="pos">120</td><td class="neg">120</td><td class="neg">90</td><td class="pos">70</td></tr>
+<tr><td class="r">8 ☁</td><td class="neg">100</td><td class="pos">140</td><td class="neg">70</td><td class="neg">50</td></tr>
+<tr class="cur"><td class="r">9</td><td>2/2</td><td>2/2</td><td>4☁/4</td><td>1/0</td></tr>
+<tr class="tot"><td>Σ</td><td>100</td><td style="color:var(--gold)">140</td><td>70</td><td>50</td></tr>
+</table></div>
+<div class="row" style="gap:6px"><span class="chip cl">☁ Wolke</span><span class="chip bo">💣 Bombe</span><span class="mut">grün = getroffen</span></div>
+<div class="sp"></div><div class="btn">Zur Runde 9</div>
+</div></div></div>
+
+<!-- 8 Spielende -->
+<div class="wrap"><div class="label">8 · Spielende</div><div class="note">Podium, Highlights der Partie, dann speichern oder Revanche mit denselben Spielern. Auch nach vorzeitigem Ende.</div>
+<div class="phone"><div class="status"><span>22:05</span><span>●●●</span></div>
+<div class="top"><h2>Spiel beendet</h2></div>
+<div class="body">
+ <div class="row" style="align-items:flex-end;justify-content:center;gap:10px;margin:8px 0">
+  <div style="text-align:center"><div class="av a1" style="margin:auto">F</div><div class="card" style="height:60px;width:62px;margin-top:4px">2.<br><b>190</b></div></div>
+  <div style="text-align:center">👑<div class="av a2" style="margin:auto">L</div><div class="card" style="height:85px;width:62px;margin-top:4px;background:#3a3020">1.<br><b style="color:var(--gold)">230</b></div></div>
+  <div style="text-align:center"><div class="av a3" style="margin:auto">M</div><div class="card" style="height:42px;width:62px;margin-top:4px">3.<br><b>120</b></div></div>
+ </div>
+ <div class="card"><div class="mut">HIGHLIGHTS</div>
+  <div style="font-size:12px;line-height:1.7">🏁 Beendet nach Runde 12 von 15<br>⏱ Dauer: 2:05 h · Ø 8:20 min pro Runde<br>🎯 Beste Trefferquote: Lena (13/15)<br>🔥 Längste Serie: Alex (7 Runden)<br>📉 Größter Absturz: Jonas, Runde 12 (−40)<br>☁ 3 Wolken · 💣 2 Bomben</div></div>
+ <div class="sp"></div>
+ <div class="btn gold">Revanche</div><div class="btn sec">Speichern & zum Start</div>
+</div></div></div>
+
+<!-- 9 Spieler -->
+<div class="wrap"><div class="label">9 · Spielerprofile</div><div class="note">Alle Spieler mit Kurzwerten. Sortierbar nach Siegen, Quote, Spielen.</div>
+<div class="phone"><div class="status"><span>12:00</span><span>●●●</span></div>
+<div class="top"><h2>Spieler</h2><div class="ic">＋</div></div>
+<div class="body">
+ <div class="row" style="gap:6px"><span class="chip on">Siege</span><span class="chip">Trefferquote</span><span class="chip">Spiele</span></div>
+ <div class="card row"><div class="av a2">L</div><div class="sp"><b>Lena</b><div class="mut">58 Spiele · 22 Siege</div></div><div style="text-align:right"><b>38%</b><div class="mut">Siegquote</div></div></div>
+ <div class="card row"><div class="av a1">F</div><div class="sp"><b>Alex</b><div class="mut">61 Spiele · 19 Siege</div></div><div style="text-align:right"><b>31%</b><div class="mut">Siegquote</div></div></div>
+ <div class="card row"><div class="av a3">M</div><div class="sp"><b>Max</b><div class="mut">44 Spiele · 11 Siege</div></div><div style="text-align:right"><b>25%</b><div class="mut">Siegquote</div></div></div>
+ <div class="card row"><div class="av a4">J</div><div class="sp"><b>Jonas</b><div class="mut">40 Spiele · 6 Siege</div></div><div style="text-align:right"><b>15%</b><div class="mut">Siegquote</div></div></div>
+ <div class="card row"><div class="av a5">S</div><div class="sp"><b>Sarah</b><div class="mut">12 Spiele · 2 Siege</div></div><div style="text-align:right"><b>17%</b><div class="mut">Siegquote</div></div></div>
+</div>
+<div class="nav"><div>🏠<br>Start</div><div class="on">👥<br>Spieler</div><div>📊<br>Statistik</div><div>🕘<br>Verlauf</div><div>📖<br>Wissen</div></div>
+</div></div>
+
+<!-- 10 Profil -->
+<div class="wrap"><div class="label">10 · Profil (erweiterte Metriken)</div><div class="note">Neu gegenüber Wizard Block: Tendenz zu hoch oder zu niedrig angesagt, Formkurve, Wolke/Bombe-Bilanz, Rivalen.</div>
+<div class="phone"><div class="status"><span>12:01</span><span>●●●</span></div>
+<div class="top"><div class="ic">←</div><div class="av a1">F</div><h2>Alex</h2><div class="ic">✎</div></div>
+<div class="body">
+ <div class="kpis">
+  <div class="card"><div class="mut">Siegquote</div><div class="big">31%</div></div>
+  <div class="card"><div class="mut">Ansage getroffen</div><div class="big">64%</div></div>
+  <div class="card"><div class="mut">Ø Punkte/Spiel</div><div class="big">162</div></div>
+  <div class="card"><div class="mut">Rekord</div><div class="big">290</div></div>
+ </div>
+ <div class="card"><div class="mut">ANSAGE-TENDENZ</div>
+  <div class="row" style="font-size:11px;margin-top:6px"><span>zu wenig 21%</span><span class="sp"></span><span>zu viel 15%</span></div>
+  <div class="bar" style="display:flex"><i style="width:21%;background:var(--cloud)"></i><i style="width:64%;background:var(--ok)"></i><i style="width:15%;background:var(--bad)"></i></div></div>
+ <div class="card"><div class="mut">FORMKURVE (letzte 12 Spiele)</div>
+  <div class="spark"><i style="height:40%"></i><i style="height:55%"></i><i style="height:35%"></i><i style="height:70%"></i><i style="height:60%"></i><i style="height:80%"></i><i style="height:45%"></i><i style="height:90%"></i><i style="height:65%"></i><i style="height:75%"></i><i style="height:100%;background:var(--gold)"></i><i style="height:70%"></i></div></div>
+ <div class="card" style="font-size:12px;line-height:1.7">⏱ Gesamtspielzeit: 127 h · Ø Partie 2:04 h<br>☁ Wolken gespielt: 14 · danach getroffen 79%<br>💣 Bomben gespielt: 9<br>⚔ Erzrivalin: Lena (9:12)</div>
+</div></div></div>
+
+<!-- 11 Statistik -->
+<div class="wrap"><div class="label">11 · Statistik gesamt</div><div class="note">Ranking über alle Spiele, filterbar nach Zeitraum und Spieleranzahl. Head-to-Head-Matrix.</div>
+<div class="phone"><div class="status"><span>12:03</span><span>●●●</span></div>
+<div class="top"><h2>Statistik</h2></div>
+<div class="body">
+ <div class="row" style="gap:6px"><span class="chip on">Alle</span><span class="chip">2026</span><span class="chip">4 Spieler</span><span class="chip">5+</span></div>
+ <div class="kpis"><div class="card"><div class="mut">Spiele</div><div class="big">87</div></div><div class="card"><div class="mut">Runden</div><div class="big">1.204</div></div></div>
+ <div class="card"><div class="mut">SIEGE</div>
+  <div style="font-size:11px;display:flex;flex-direction:column;gap:5px;margin-top:6px">
+  <div class="row"><span style="width:52px">Lena</span><div class="bar sp"><i style="width:100%;background:#f2c14e"></i></div><span>22</span></div>
+  <div class="row"><span style="width:52px">Alex</span><div class="bar sp"><i style="width:86%;background:#f2c14e"></i></div><span>19</span></div>
+  <div class="row"><span style="width:52px">Max</span><div class="bar sp"><i style="width:50%;background:#f2c14e"></i></div><span>11</span></div>
+  <div class="row"><span style="width:52px">Jonas</span><div class="bar sp"><i style="width:27%;background:#f2c14e"></i></div><span>6</span></div></div></div>
+ <div class="card"><div class="mut">DAUER</div>
+  <div class="row" style="font-size:12px;margin-top:4px"><span class="sp">Ø Partie</span><b>1:58 h</b></div>
+  <div class="row" style="font-size:12px"><span class="sp">Ø Runde</span><b>7:40 min</b></div>
+  <div class="row" style="font-size:12px"><span class="sp">Längste / kürzeste</span><b>3:10 / 0:55 h</b></div>
+  <div class="row" style="font-size:12px"><span class="sp">Gesamt gespielt</span><b>171 h</b></div>
+  <div class="mut" style="margin-top:6px">Ø Dauer nach Spieleranzahl</div>
+  <div class="spark" style="height:36px"><i style="height:45%"></i><i style="height:65%"></i><i style="height:85%"></i><i style="height:100%"></i></div>
+  <div class="row mut" style="justify-content:space-around;font-size:9px"><span>3</span><span>4</span><span>5</span><span>6</span></div></div>
+ <div class="card"><div class="mut">HEAD-TO-HEAD (Siege Zeile gegen Spalte)</div>
+  <table style="margin-top:4px"><tr><th></th><th>F</th><th>L</th><th>M</th><th>J</th></tr>
+  <tr><td>F</td><td>–</td><td>9</td><td>14</td><td>17</td></tr><tr><td>L</td><td>12</td><td>–</td><td>15</td><td>18</td></tr><tr><td>M</td><td>8</td><td>6</td><td>–</td><td>12</td></tr></table></div>
+</div>
+<div class="nav"><div>🏠<br>Start</div><div>👥<br>Spieler</div><div class="on">📊<br>Statistik</div><div>🕘<br>Verlauf</div><div>📖<br>Wissen</div></div>
+</div></div>
+
+<!-- 12 Verlauf -->
+<div class="wrap"><div class="label">12 · Verlauf</div><div class="note">Alle Partien inklusive der importierten. Suchen, filtern, öffnen (zeigt die Punktetabelle).</div>
+<div class="phone"><div class="status"><span>12:05</span><span>●●●</span></div>
+<div class="top"><h2>Verlauf</h2><div class="ic">🔍</div></div>
+<div class="body">
+ <div class="mut">NOVEMBER 2026</div>
+ <div class="card row"><span>🏆</span><div class="sp"><b>Alex</b> 210 <div class="mut">07.11. · F, L, M, J, S · ⏱ 2:05 h · 🏁 R12</div></div><span class="mut">›</span></div>
+ <div class="mut">OKTOBER 2026</div>
+ <div class="card row"><span>🏆</span><div class="sp"><b>Max</b> 180<div class="mut">30.10. · F, L, M, J · ⏱ 1:48 h</div></div><span class="mut">›</span></div>
+ <div class="card row"><span>🏆</span><div class="sp"><b>Lena</b> 230<div class="mut">25.10. · F, L, M · ⏱ 2:31 h</div></div><span class="mut">›</span></div>
+ <div class="mut">2025 · IMPORTIERT</div>
+ <div class="card row"><span>🏆</span><div class="sp"><b>Lena</b> 170 <span class="chip">Wizard Block</span><div class="mut">14.12.2025 · F, L, J</div></div><span class="mut">›</span></div>
+ <div class="card row"><span>🏆</span><div class="sp"><b>Alex</b> 250 <span class="chip">Wizard Block</span><div class="mut">02.12.2025 · F, L, M, J</div></div><span class="mut">›</span></div>
+</div>
+<div class="nav"><div>🏠<br>Start</div><div>👥<br>Spieler</div><div>📊<br>Statistik</div><div class="on">🕘<br>Verlauf</div><div>📖<br>Wissen</div></div>
+</div></div>
+
+<!-- 13 Import -->
+<div class="wrap"><div class="label">13 · Daten: Import</div><div class="note">Datei wählen, Vorschau, Spielernamen den Profilen zuordnen (z. B. „Fred“ → Alex), importieren.</div>
+<div class="phone"><div class="status"><span>12:10</span><span>●●●</span></div>
+<div class="top"><div class="ic">←</div><h2>Import & Export</h2></div>
+<div class="body">
+ <div class="row" style="gap:6px"><div class="btn sp" style="padding:8px">⬇ Import</div><div class="btn sec sp" style="padding:8px">⬆ Export</div></div>
+ <div class="row" style="gap:6px"><span class="chip on">Wizard Block</span><span class="chip">Wizard-Tracker-Backup</span><span class="chip">CSV</span></div>
+ <div class="drop">📄 wizardblock_export.json<br><span style="color:var(--ok)">✓ 73 Spiele · 6 Spieler erkannt</span></div>
+ <div class="mut">SPIELER ZUORDNEN</div>
+ <div class="card row"><span class="sp">„Fred“</span><span class="mut">→</span><div class="av a1">F</div><span>Alex ▾</span></div>
+ <div class="card row"><span class="sp">„Lena“</span><span class="mut">→</span><div class="av a2">L</div><span>Lena ▾</span></div>
+ <div class="card row"><span class="sp">„Maxi“</span><span class="mut">→</span><div class="av a3">M</div><span>Max ▾</span></div>
+ <div class="card row"><span class="sp">„Tom“</span><span class="mut">→</span><span class="chip on">+ neues Profil</span></div>
+ <div class="hint ok">3 Duplikate erkannt und übersprungen</div>
+ <div class="sp"></div>
+ <div class="btn">73 Spiele importieren</div>
+</div></div></div>
+
+<!-- 14 Einstellungen -->
+<div class="wrap"><div class="label">14 · Einstellungen</div><div class="note">Standardregeln, Backup als Datei (Export und Import), Darstellung. Kein Konto, keine Werbung.</div>
+<div class="phone"><div class="status"><span>12:12</span><span>●●●</span></div>
+<div class="top"><div class="ic">←</div><h2>Einstellungen</h2></div>
+<div class="body">
+ <div class="mut">STANDARD-REGELN</div>
+ <div class="card row"><span class="sp">Jubiläumsedition</span><div class="tog"></div></div>
+ <div class="card row"><span class="sp">Wolke & Bombe erfassen</span><div class="tog"></div></div>
+ <div class="card row"><span class="sp">Ansagen ≠ Runde</span><div class="tog"></div></div>
+ <div class="card row"><span class="sp">Wer Bombe/Wolke spielte erfassen</span><div class="tog off"></div></div>
+ <div class="mut">DATEN</div>
+ <div class="card row"><span class="sp">Import & Export</span><span class="mut">›</span></div>
+ <div class="card row"><span class="sp">Automatisches Backup</span><span class="mut">wöchentlich ›</span></div>
+ <div class="mut">DARSTELLUNG</div>
+ <div class="card row"><span class="sp">Spieldauer automatisch messen</span><div class="tog"></div></div>
+ <div class="card row"><span class="sp">Bildschirm wach halten</span><div class="tog"></div></div>
+ <div class="card row"><span class="sp">Design</span><span class="mut">Hell · Dunkel · System ›</span></div>
+ <div class="card row"><span class="sp">Dynamic Color</span><div class="tog"></div></div>
+ <div class="card row"><span class="sp">Sprache</span><span class="mut">Deutsch ›</span></div>
+</div></div></div>
+
+<!-- 18 Export -->
+<div class="wrap"><div class="label">18 · Daten: Export</div><div class="note">Gleicher Screen, Tab „Export“. Format und Umfang wählen, dann speichern oder über Android teilen. Ein Backup lässt sich 1:1 wieder importieren, auch auf einem neuen Handy.</div>
+<div class="phone"><div class="status"><span>12:14</span><span>●●●</span></div>
+<div class="top"><div class="ic">←</div><h2>Import & Export</h2></div>
+<div class="body">
+ <div class="row" style="gap:6px"><div class="btn sec sp" style="padding:8px">⬇ Import</div><div class="btn sp" style="padding:8px">⬆ Export</div></div>
+ <div class="mut">FORMAT</div>
+ <div class="card row" style="border:1px solid var(--acc)"><span>●</span><div class="sp"><b>Komplett-Backup</b> (JSON)<div class="mut">Alle Spiele, Profile, Einstellungen, wieder importierbar</div></div></div>
+ <div class="card row"><span class="mut">○</span><div class="sp"><b>Tabelle</b> (CSV)<div class="mut">Für Excel/Sheets: eine Zeile pro Spieler und Runde</div></div></div>
+ <div class="card row"><span class="mut">○</span><div class="sp"><b>Einzelnes Spiel</b> (Bild/PDF)<div class="mut">Punktetabelle zum Teilen in der Gruppe</div></div></div>
+ <div class="mut">UMFANG</div>
+ <div class="row" style="gap:6px;flex-wrap:wrap"><span class="chip on">Alle Spiele (87)</span><span class="chip">Zeitraum</span><span class="chip">Spieler</span></div>
+ <div class="hint">Letztes Backup: 01.11.2026 · 85 Spiele</div>
+ <div class="sp"></div>
+ <div class="row" style="gap:6px"><div class="btn sec sp">💾 Speichern</div><div class="btn sp">↗ Teilen</div></div>
+</div></div></div>
+
+<!-- 19 Spiel beenden -->
+<div class="wrap"><div class="label">19 · Spiel jederzeit beenden</div><div class="note">Über ☰ im Spiel, jederzeit. Gewertet werden alle abgeschlossenen Runden. Die laufende Runde kann man noch eintragen oder verwerfen. Vorzeitig beendete Spiele zählen voll in der Statistik. Die Uhr läuft ohne Pause bis zum Beenden.</div>
+<div class="phone"><div class="status"><span>21:40</span><span>●●●</span></div>
+<div class="top"><div class="ic">☰</div><h2>Runde 13 · Ansagen</h2></div>
+<div class="body"><div class="card" style="height:60px"></div><div class="card" style="height:60px"></div><div class="card" style="height:60px"></div></div>
+<div class="dim"></div>
+<div class="sheet">
+ <div class="row"><b>🏁 Spiel beenden?</b><span class="sp"></span><span class="mut">✕</span></div>
+ <div class="hint">12 von 15 Runden gespielt · Runde 13 läuft</div>
+ <div class="card row" style="border:1px solid var(--acc);background:var(--card2)"><span>●</span><div class="sp"><b>Nach Runde 12 beenden</b><div class="mut">Runde 13 wird verworfen</div></div></div>
+ <div class="card row" style="background:var(--card2)"><span class="mut">○</span><div class="sp"><b>Runde 13 noch eintragen</b><div class="mut">dann beenden</div></div></div>
+ <div class="mut">STAND NACH RUNDE 12</div>
+ <div class="row" style="font-size:12px"><span>👑 Lena 190</span><span class="sp"></span><span>Alex 170</span><span class="sp"></span><span>Max 120</span></div>
+ <div class="btn gold">Beenden & Ergebnis zeigen</div>
+ <div class="btn sec">Weiterspielen</div>
+</div></div></div>
+
+<!-- 20 Eigene Karte -->
+<div class="wrap"><div class="label">20 · Eigene Karte anlegen / bearbeiten</div><div class="note">Über ＋ im Wissen. Emoji wählen, Texte selbst eintragen. Auch offizielle Karten lassen sich anpassen (✎), mit „Original wiederherstellen“.</div>
+<div class="phone"><div class="status"><span>21:20</span><span>●●●</span></div>
+<div class="top"><div class="ic">✕</div><h2>Neue Karte</h2><span class="chip on">Speichern</span></div>
+<div class="body">
+ <div class="row" style="gap:10px"><div class="card" style="font-size:30px;padding:6px 12px">😴</div><div class="sp"><div class="mut">Emoji antippen zum Ändern</div><div class="row" style="gap:4px;margin-top:4px;font-size:16px"><span>🧙</span><span>🐉</span><span>🦄</span><span>👻</span><span>🍄</span><span class="mut">…</span></div></div></div>
+ <div class="card"><div class="mut">Name</div><b>Schlafender Jan</b></div>
+ <div class="row" style="gap:8px"><div class="card sp"><div class="mut">Wert</div><b>wie Narr</b></div><div class="card sp"><div class="mut">Gruppe</div><b>Eigene</b></div></div>
+ <div class="card"><div class="mut">Kurz gesagt (1 Satz)</div><span style="font-size:12px">Wie ein Narr, macht gar nichts.</span></div>
+ <div class="card"><div class="mut">Details (optional)</div><span style="font-size:12px">Bruder des Gnoms. Ob man ihn spielt oder nicht, ist egal.</span></div>
+ <div class="card"><div class="mut">Als Trumpfkarte aufgedeckt · Kombinationen</div><span class="mut">optional …</span></div>
+ <div class="card row"><div class="sp">Wirkung auf die Wertung<div class="mut">zeigt eine Taste in der Runde</div></div><span class="mut">keine ›</span></div>
+ <div class="mut" style="font-size:10px">Auswahl: keine · Ansage ±1 (wie Wolke) · Stich zählt nicht (wie Bombe)</div>
+</div></div></div>
+
+<!-- 21 Sprache -->
+<div class="wrap"><div class="label">21 · Sprache</div><div class="note">In den Einstellungen. Ändert die ganze App inkl. Regeln und offizieller Karten. Eigene Karten bleiben in der Sprache, in der du sie geschrieben hast, oder bekommen optional eine Übersetzung.</div>
+<div class="phone"><div class="status"><span>21:25</span><span>●●●</span></div>
+<div class="top"><div class="ic">←</div><h2>Sprache</h2></div>
+<div class="body">
+ <div class="card row" style="border:1px solid var(--acc)"><span>🇩🇪</span><span class="sp">Deutsch</span><span>✓</span></div>
+ <div class="card row"><span>🇬🇧</span><span class="sp">English</span></div>
+ <div class="card row"><span>📱</span><span class="sp">Wie System</span></div>
+ <div class="mut" style="margin-top:6px">EIGENE KARTEN</div>
+ <div class="card row"><span class="sp">Übersetzungsfelder anzeigen<div class="mut">Beim Bearbeiten: Name und Text auch auf Englisch</div></span><div class="tog off"></div></div>
+ <div class="hint">Fehlt eine Übersetzung, zeigt die App den Originaltext.</div>
+</div></div></div>
+
+<!-- 15 Wissen -->
+<div class="wrap"><div class="label">15 · Wissen: Kartensuche</div><div class="note">Enzyklopädie mit Suche. Alle Sonderkarten (offiziell + eigene), Grundkarten, Regeln und Varianten. Antippen öffnet die Kurzerklärung.</div>
+<div class="phone"><div class="status"><span>21:02</span><span>●●●</span></div>
+<div class="top"><h2>Wissen</h2><div class="ic">＋</div></div>
+<div class="body">
+ <div class="card row" style="padding:9px 12px"><span>🔍</span><span class="mut sp" style="font-size:13px">Karte oder Regel suchen …</span></div>
+ <div class="row" style="gap:6px;flex-wrap:wrap"><span class="chip on">Karten</span><span class="chip">Regeln</span><span class="chip">Varianten</span><span class="chip">Eigene</span></div>
+ <div class="card row"><span style="font-size:20px">🐉</span><div class="sp"><b>Drache</b><div class="mut">Schlägt alles, außer die Fee liegt im Stich</div></div></div>
+ <div class="card row"><span style="font-size:20px">🧚</span><div class="sp"><b>Fee</b><div class="mut">Gewinnt nur, wenn der Drache im Stich liegt</div></div></div>
+ <div class="card row"><span style="font-size:20px">💣</span><div class="sp"><b>Bombe</b> <span class="chip bo">App</span><div class="mut">Niemand gewinnt den Stich</div></div></div>
+ <div class="card row"><span style="font-size:20px">☁</span><div class="sp"><b>Wolke</b> <span class="chip cl">App</span><div class="mut">Gewinner ändert die Ansage um ±1</div></div></div>
+ <div class="card row"><span style="font-size:20px">🤹</span><div class="sp"><b>Jongleur</b><div class="mut">7½, danach Karte nach links weitergeben</div></div></div>
+ <div class="card row"><span style="font-size:20px">🧙</span><div class="sp"><b>Gnom / Dieb</b> <span class="chip">eigene</span><div class="mut">3½ · Stichgewinner tauscht eine Karte</div></div></div>
+ <div class="card row"><span style="font-size:20px">😴</span><div class="sp"><b>Schlafender Jan</b> <span class="chip">eigene</span><div class="mut">Wie ein Narr, macht gar nichts. Zzz …</div></div></div>
+</div>
+<div class="nav"><div>🏠<br>Start</div><div>👥<br>Spieler</div><div>📊<br>Statistik</div><div>🕘<br>Verlauf</div><div class="on">📖<br>Wissen</div></div>
+</div></div>
+
+<!-- 16 Kartendetail -->
+<div class="wrap"><div class="label">16 · Kartendetail</div><div class="note">In 10 Sekunden erklärt: Effekt, Wert, Trumpf-Fall, Kombinationen. Im Spiel über ein ❓ erreichbar.</div>
+<div class="phone"><div class="status"><span>21:03</span><span>●●●</span></div>
+<div class="top"><div class="ic">←</div><h2>☁ Wolke</h2><span class="chip">30 Jahre</span><div class="ic">✎</div></div>
+<div class="body">
+ <div class="card" style="background:#1e3448"><div class="mut" style="color:var(--cloud)">KURZ GESAGT</div><div style="font-size:14px;margin-top:4px;line-height:1.4">Wer den Stich mit der Wolke gewinnt, <b>muss seine Ansage um +1 oder −1 ändern.</b></div></div>
+ <div class="kpis"><div class="card"><div class="mut">Wert</div><div class="big">9¾</div></div><div class="card"><div class="mut">Farbe</div><div style="font-size:13px;margin-top:6px">frei wählbar, auch Trumpf</div></div></div>
+ <div class="card" style="font-size:12px;line-height:1.6"><div class="mut">DETAILS</div>• Beim Ausspielen eine Farbe ansagen<br>• Eröffnet sie den Stich, muss man diese Farbe bedienen<br>• Als Trumpfkarte aufgedeckt: Geber bestimmt Trumpf</div>
+ <div class="card" style="font-size:12px;line-height:1.6"><div class="mut">KOMBINATIONEN</div>💣 + ☁: Ansage bleibt gleich<br>🤹 + ☁: Erst Karten weitergeben, dann ±1</div>
+ <div class="hint">📱 In der App: Taste „☁ Wolke“ in der Runde</div>
+</div></div></div>
+
+<!-- 17 Regeln & Varianten -->
+<div class="wrap"><div class="label">17 · Regeln & Varianten</div><div class="note">Grundregeln in kurzen Abschnitten, darunter alle offiziellen Varianten. Varianten, die die Wertung betreffen, wählt man beim neuen Spiel aus.</div>
+<div class="phone"><div class="status"><span>21:05</span><span>●●●</span></div>
+<div class="top"><div class="ic">←</div><h2>Regeln</h2></div>
+<div class="body">
+ <div class="mut">GRUNDREGELN</div>
+ <div class="card row"><span class="sp">Aufbau & Rundenzahl</span><span class="mut">›</span></div>
+ <div class="card row"><span class="sp">Trumpf bestimmen</span><span class="mut">›</span></div>
+ <div class="card row"><span class="sp">Bedienen & Stich gewinnen</span><span class="mut">›</span></div>
+ <div class="card row"><span class="sp">Wertung: 20 + 10 je Stich / −10</span><span class="mut">›</span></div>
+ <div class="mut">VARIANTEN</div>
+ <div class="card row"><span class="sp">Plus/minus Eins</span><span class="chip on">App</span></div>
+ <div class="card row"><span class="sp">Verdeckter Tipp</span><span class="chip on">App</span></div>
+ <div class="card row"><span class="sp">Geheime Vorhersage</span><span class="chip on">App</span></div>
+ <div class="card row"><span class="sp">Einfarbig (3–4)</span><span class="chip on">App</span></div>
+ <div class="card row"><span class="sp">Wizard Maximus</span><span class="chip on">App</span></div>
+ <div class="card row"><span class="sp">Hellsehen</span><span class="chip">nur Regel</span></div>
+</div>
+<div class="nav"><div>🏠<br>Start</div><div>👥<br>Spieler</div><div>📊<br>Statistik</div><div>🕘<br>Verlauf</div><div class="on">📖<br>Wissen</div></div>
+</div></div>
+
+</div>
+</body>
+</html>

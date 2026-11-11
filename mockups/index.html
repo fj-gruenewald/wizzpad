@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>Wizzpad – Mockups</title>
+<style>
+body{font-family:Roboto,"Noto Sans",system-ui,sans-serif;background:#efe6de;color:#2e1500;margin:0;padding:28px}
+body.dark{background:#120d09;color:#ffdcc2}
+h1{font-size:24px;margin:0 0 6px}p.i{max-width:900px;line-height:1.5;opacity:.8;margin:0 0 16px}
+.bar{position:sticky;top:0;z-index:5;background:inherit;padding:10px 0 16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.bar button{font:inherit;font-size:13px;padding:7px 14px;border-radius:18px;border:1px solid #8f4c00;background:transparent;color:inherit;cursor:pointer}
+.bar button.on{background:#8f4c00;color:#fff}
+h2{font-size:18px;margin:30px 0 12px}
+.grid{display:flex;flex-wrap:wrap;gap:28px}
+.w{width:300px}.l{font-weight:600;margin-bottom:3px}.n{font-size:12px;opacity:.75;min-height:32px;margin-bottom:8px;line-height:1.35}
+.ph{width:300px;height:640px;border:7px solid #111;border-radius:30px;overflow:hidden;background:#fff}
+.ph iframe{width:390px;height:853px;border:0;transform:scale(.7692);transform-origin:0 0}
+</style></head><body>
+<h1>Wizzpad – Mockups</h1>
+<p class="i">Alle Screens kommen live aus dem Klick-Dummy (<code>../clickdummy/index.html</code>) mit Beispieldaten aus deiner Wizard-Block-Historie. Mockup und Klick-Dummy sind damit immer identisch. Material 3, Standardfarbe Wizzpad-Orange.</p>
+<div class="bar"><b>Design:</b><button data-k="mode" data-v="light" class="on">☀ Hell</button><button data-k="mode" data-v="dark">☾ Dunkel</button>
+<b style="margin-left:14px">Eingabe:</b><button data-k="entry" data-v="focus" class="on">Fokus</button><button data-k="entry" data-v="list">Liste</button><button data-k="entry" data-v="tiles">Kacheln</button></div>
+<div id="g"></div>
+<script>
+const SECT=[
+["Spiel",[["start","1 · Start","Laufendes Spiel fortsetzen, neues Spiel, letzte Partien."],
+["running","1b · Neues Spiel bei laufendem Spiel","Es kann nur ein Spiel laufen: erst beenden & werten oder löschen."],
+["newgame","2 · Neues Spiel","Spieler in Sitzreihenfolge antippen. Erste Person beginnt, letzte ist Dealer. Keine Rundenzahl – gespielt wird, bis ihr aufhört."],
+["newgame&scroll=600","2b · Neues Spiel: Spielmodus","Klassisch, Einfarbig, Wizard Maximus. Regeln: Plus/minus Eins, Jubiläumsedition. Ansagen: offen, verdeckt, geheim."],
+["newgame2&scroll=600","2c · Beispiel: Maximus + Verdeckter Tipp","Nicht kombinierbare Optionen sind ausgegraut und begründet."],
+["bid","3 · Runde: Ansagen (Fokus)","Reihenfolge oben, aktuelle Person groß. Unerlaubte Ansage beim Dealer (Plus/minus Eins) ist durchgestrichen und nicht wählbar."],
+["bid&entry=list","3b · Ansagen (Liste)","Unerlaubte Ansage als durchgestrichene Zahl neben dem Dealer, + / − springt darüber hinweg."],
+["bid&entry=tiles","3c · Ansagen (Kacheln)","Unerlaubte Ansage durchgestrichen in der Dealer-Kachel."],
+["tricks","4 · Runde: Stiche","Stiche mit den Ansagen vorbefüllt. Wolke, Bombe und eigene Karten mit Wirkung unter dem Namen."],
+["cloud","5 · Wolke spielen","Person wählen, die den Stich gewonnen hat, dann +1 oder −1."],
+["bomb","6 · Bombe spielen","Bombe eintragen, optional wer sie gespielt hat."],
+["table","7 · Punktetabelle","Nach jeder Runde. Unten: Runde X ▶ und links klein ✕ Game over."],
+["edit","8 · Runde bearbeiten","Runde in der Tabelle antippen: Ansage, Stiche, Bombe ändern."],
+["gameover","9 · Game over","Spiel jederzeit beenden, gewertet werden alle abgeschlossenen Runden. Oder abgebrochenes Spiel ganz löschen."],
+["end","10 · Spiel beendet","Siegertreppchen, Dauer, Wahrsager-Award, Revanche."]]],
+["Spieler & Auswertung",[["players","11 · Spieler","Sortiert nach Siegen, Filter für ausgeblendete Personen."],
+["profile","12 · Profil","Kennzahlen, Ansage-Tendenz, Rekorde, direkter Vergleich."],
+["profile&scroll=2000","12b · Profil: Vergleich & Verwaltung","Direkter Vergleich, Angstgegner. Ganz unten nach einem Trennstrich: Kürzel, Zusammenführen, Spieler löschen."],
+["stats","13 · Statistik","Filter nach Jahr und Spieleranzahl, Siege, Dauer."],
+["stats&scroll=900","13b · Statistik: Rekorde","Rekorde, Wahrsager-Ranking, Spiele pro Jahr."],
+["statsyears","13c · Statistik: viele Jahre","Beispiel mit erfundenen Jahren 2017–2022: Jahres-Chips in einer Zeile, neuestes zuerst, seitlich wischbar."],
+["hist","14 · Verlauf","Alle Partien inkl. deiner Historie, antippen öffnet die Tabelle."],
+["histgame","14b · Altes Spiel","Punktetabelle eines alten Spiels, unten „Spiel löschen“."],
+["histdel","14c · Spiel löschen","„Bist du sicher?“ – erst nach Eintippen von „ja“ aktiv. Endgültig, zählt danach nicht mehr in der Statistik."]]],
+["Wissen",[["know","15 · Wissen: Karten","Suche, Filter Karten / Eigene / Anleitung / App."],
+["card","16 · Kartendetail","Kurz gesagt, Wert, Farbe, Details, Kombinationen, Hinweis zur App."],
+["cedit","17 · Eigene Karte bearbeiten","Emoji, Name, Wert, Texte und Wirkung auf die Wertung. Offizielle Karten sind auch anpassbar."],
+["rules","18 · Anleitung: Regeln & Varianten","Grundregeln und Varianten zum Aufklappen, auswählbare Varianten markiert."],
+["apphelp","19 · Wissen: App","Erklärungen zur App statt Hinweistexten in den Screens."]]],
+["Einstellungen & Daten",[["settings","20 · Einstellungen","Regeln, Eingabe-Layout, Design, Dynamic Color, Uhr, Display wach, Sprache, Backup."],
+["reset","20b · Alles zurücksetzen","Abgesichert: erst nach Eintippen von „Ich bin kein Narr“ aktiv."],
+["data","21 · Import & Export","Wizard-Block-Dateien, Backup, CSV."]]]];
+let O={mode:"light",entry:"focus"};
+function draw(){document.body.className=O.mode==="dark"?"dark":"";document.getElementById("g").innerHTML=SECT.map(([t,L])=>`<h2>${t}</h2><div class="grid">${L.map(([k,l,n])=>`<div class="w"><div class="l">${l}</div><div class="n">${n}</div><div class="ph"><iframe loading="lazy" src="../clickdummy/index.html?v=${Date.now()}#demo=${k}&mode=${O.mode}&entry=${O.entry}"></iframe></div></div>`).join("")}</div>`).join("")}
+document.querySelector(".bar").onclick=e=>{const b=e.target.closest("button");if(!b)return;O[b.dataset.k]=b.dataset.v;document.querySelectorAll(`.bar [data-k=${b.dataset.k}]`).forEach(x=>x.classList.toggle("on",x===b));draw()};draw();
+</script></body></html>

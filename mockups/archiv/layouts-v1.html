@@ -1,0 +1,305 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><title>Wizard Tracker – Layouts</title><style>
+:root{--bg:#14121f;--card:#1f1b30;--card2:#2a2540;--txt:#ece8f7;--mut:#9a93b5;--acc:#8b6cff;--gold:#f2c14e;--ok:#4cc38a;--bad:#ff6b6b;--cloud:#7cc7ff;--bomb:#ff8a3d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#0b0a12;color:var(--txt);padding:32px}
+h1{font-size:22px;margin-bottom:6px}
+.intro{color:var(--mut);margin-bottom:28px;max-width:900px;line-height:1.5}
+.grid{display:flex;flex-wrap:wrap;gap:36px}
+.wrap{width:300px}
+.label{font-weight:600;margin-bottom:4px}
+.note{color:var(--mut);font-size:12px;margin-bottom:10px;min-height:32px;line-height:1.35}
+.phone{width:300px;height:620px;background:var(--bg);border-radius:32px;border:8px solid #000;overflow:hidden;position:relative;display:flex;flex-direction:column;box-shadow:0 10px 30px #0008}
+.status{height:22px;font-size:10px;color:var(--mut);display:flex;justify-content:space-between;padding:4px 16px}
+.top{display:flex;align-items:center;gap:10px;padding:8px 14px 10px}
+.top h2{font-size:17px;flex:1}
+.ic{width:28px;height:28px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:13px}
+.body{flex:1;overflow:hidden;padding:0 12px 12px;display:flex;flex-direction:column;gap:8px}
+.card{background:var(--card);border-radius:14px;padding:10px 12px}
+.row{display:flex;align-items:center;gap:8px}
+.sp{flex:1}
+.mut{color:var(--mut);font-size:11px}
+.big{font-size:22px;font-weight:700}
+.btn{background:var(--acc);color:#fff;border-radius:12px;padding:11px;text-align:center;font-weight:600;font-size:14px}
+.btn.sec{background:var(--card2);color:var(--txt)}
+.btn.gold{background:var(--gold);color:#222}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#111;flex:none}
+.a1{background:#f2c14e}.a2{background:#7cc7ff}.a3{background:#4cc38a}.a4{background:#ff8fb1}.a5{background:#c3a6ff}
+.step{display:flex;align-items:center;gap:6px}
+.step b{width:30px;height:30px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:16px}
+.step span{width:26px;text-align:center;font-size:20px;font-weight:700}
+.chip{font-size:10px;padding:3px 7px;border-radius:20px;background:var(--card2);color:var(--mut)}
+.chip.on{background:var(--acc);color:#fff}
+.chip.cl{background:#1e3448;color:var(--cloud)}
+.chip.bo{background:#40261a;color:var(--bomb)}
+.hint{font-size:11px;padding:7px 10px;border-radius:10px;background:#2b2440;color:var(--mut)}
+.hint.warn{background:#3d2a1a;color:var(--bomb)}
+.hint.ok{background:#173326;color:var(--ok)}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th,td{padding:4px 2px;text-align:center}
+th{color:var(--mut);font-weight:500}
+td.r{color:var(--mut)}
+.pos{color:var(--ok)}.neg{color:var(--bad)}
+.cur{background:#2c2550}
+.tot td{font-weight:700;font-size:13px;border-top:1px solid #3a3358}
+.nav{display:flex;justify-content:space-around;padding:8px 0 12px;border-top:1px solid #2a2540;font-size:10px;color:var(--mut)}
+.nav div{text-align:center}.nav .on{color:var(--acc)}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:var(--card);border-radius:22px 22px 0 0;padding:14px;display:flex;flex-direction:column;gap:9px;box-shadow:0 -10px 30px #000a}
+.dim{position:absolute;inset:0;background:#000a}
+.bar{height:8px;border-radius:4px;background:var(--card2);overflow:hidden}.bar i{display:block;height:100%;background:var(--acc)}
+.spark{display:flex;align-items:flex-end;gap:3px;height:60px}.spark i{flex:1;background:var(--acc);border-radius:2px 2px 0 0}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.drop{border:2px dashed #3a3358;border-radius:14px;padding:22px;text-align:center;color:var(--mut);font-size:12px}
+.tog{width:34px;height:20px;border-radius:10px;background:var(--acc);position:relative}.tog:after{content:"";position:absolute;right:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.tog.off{background:var(--card2)}.tog.off:after{left:2px;right:auto}
+
+/* Namenszeile: lange Namen kürzen, Rollen als Badge am Avatar + in der Unterzeile */
+.av{position:relative}
+.bd{position:absolute;right:-6px;bottom:-6px;width:17px;height:17px;border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;border:2px solid var(--card)}
+.bd.st{background:var(--acc);color:#fff}.bd.dl{background:var(--gold);color:#111}
+.who{flex:1;min-width:0}
+.who .mut{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nm{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.role-st{color:var(--acc);font-weight:600}.role-dl{color:var(--gold);font-weight:600}
+
+/* ===== Theme-Umschalter ===== */
+.themebar{position:sticky;top:0;z-index:10;display:flex;gap:8px;align-items:center;padding:10px 0 18px;background:inherit}
+.themebar button{font:inherit;font-size:13px;padding:7px 14px;border-radius:20px;border:1px solid #444;background:#1f1b30;color:#ece8f7;cursor:pointer}
+.themebar button.on{background:#8b6cff;border-color:#8b6cff;color:#fff}
+
+/* ===== MATERIAL 3 (Material You), Light + Dark ===== */
+body.m3l,body.m3d{font-family:Roboto,"Noto Sans","Segoe UI",system-ui,sans-serif}
+body.m3l{background:#e7e0ec;color:#1d1b20;--bg:#fef7ff;--card:#f3edf7;--card2:#e8def8;--txt:#1d1b20;--mut:#49454f;--acc:#6750a4;--gold:#7d5260;--ok:#1b6c3a;--bad:#b3261e;--cloud:#2b6a9a;--bomb:#a5541b;--onacc:#fff;--tonal:#e8def8;--ontonal:#1d192b;--nav:#f3edf7;--ind:#e8def8;--outline:#79747e}
+body.m3d{background:#0f0d13;color:#e6e0e9;--bg:#141218;--card:#211f26;--card2:#2b2930;--txt:#e6e0e9;--mut:#cac4d0;--acc:#d0bcff;--gold:#efb8c8;--ok:#7fd99a;--bad:#f2b8b5;--cloud:#9ecaff;--bomb:#ffb68a;--onacc:#381e72;--tonal:#4a4458;--ontonal:#e8def8;--nav:#211f26;--ind:#4a4458;--outline:#938f99}
+body.m3l .themebar,body.m3d .themebar{background:inherit}
+body.m3l .phone,body.m3d .phone{border:6px solid #1d1b20;border-radius:30px;box-shadow:0 4px 12px #0003}
+body:is(.m3l,.m3d) .top h2{font-weight:400;font-size:19px}
+body:is(.m3l,.m3d) .card{border-radius:12px;background:var(--card)}
+body:is(.m3l,.m3d) .card[style*="border:1px solid"]{border:none!important;background:var(--tonal);}
+body:is(.m3l,.m3d) .btn{border-radius:20px;background:var(--acc);color:var(--onacc);font-weight:500;letter-spacing:.01em;padding:10px}
+body:is(.m3l,.m3d) .btn.gold{background:var(--tonal);color:var(--ontonal)}
+body:is(.m3l,.m3d) .btn.sec{background:transparent;color:var(--acc);border:1px solid var(--outline)}
+body:is(.m3l,.m3d) .chip{border-radius:8px;background:transparent;border:1px solid var(--outline);color:var(--mut)}
+body:is(.m3l,.m3d) .chip.on{background:var(--tonal);color:var(--ontonal);border-color:var(--tonal)}
+body:is(.m3l,.m3d) .hint{border-radius:12px;background:var(--card2);color:var(--txt)}
+body.m3l .hint.warn{background:#ffdbcb;color:#5c1a00}body.m3d .hint.warn{background:#6b3b14;color:#ffdbcb}
+body.m3l .hint.ok{background:#c4eed0;color:#00210e}body.m3d .hint.ok{background:#1f5132;color:#c4eed0}
+body:is(.m3l,.m3d) .step b{background:var(--tonal);color:var(--ontonal);border-radius:50%}
+body:is(.m3l,.m3d) .ic{background:transparent;color:var(--mut)}
+body:is(.m3l,.m3d) .sheet{border-radius:28px 28px 0 0;background:var(--card)}
+body:is(.m3l,.m3d) .sheet:before{content:"";display:block;width:32px;height:4px;border-radius:2px;background:var(--outline);margin:-4px auto 4px;opacity:.5}
+body.m3l .dim{background:#0006}body.m3d .dim{background:#000a}
+body:is(.m3l,.m3d) .nav{background:var(--nav);border-top:none}
+body:is(.m3l,.m3d) .nav .on{color:var(--txt);font-weight:600}
+body:is(.m3l,.m3d) .nav .on{background:linear-gradient(var(--ind),var(--ind)) center 0/48px 24px no-repeat;border-radius:12px}
+body:is(.m3l,.m3d) .tog{background:var(--acc);height:22px;width:38px;border-radius:11px}
+body:is(.m3l,.m3d) .tog:after{background:var(--onacc);top:3px;right:3px}
+body:is(.m3l,.m3d) .tog.off{background:var(--card2);outline:2px solid var(--outline);outline-offset:-2px}
+body:is(.m3l,.m3d) .tog.off:after{background:var(--outline);width:12px;height:12px;top:5px;left:5px}
+body:is(.m3l,.m3d) .cur{background:var(--tonal)}
+body:is(.m3l,.m3d) .tot td{border-top:1px solid var(--outline)}
+body:is(.m3l,.m3d) .bar{background:var(--card2)}
+body:is(.m3l,.m3d) .bd{border-color:var(--bg)}
+body:is(.m3l,.m3d) .bd.st{color:var(--onacc)}
+body:is(.m3l,.m3d) .av{color:#1d1b20}
+body.m3l [style*="background:#1e3448"]{background:#d1e4ff!important}body.m3l [style*="background:#3a3020"]{background:#ffd8e4!important}body.m3l [style*="background:#40261a"]{background:#ffdbcb!important}
+body.m3l .chip.cl{background:#d1e4ff;color:#001d36;border:none}body.m3l .chip.bo{background:#ffdbcb;color:#5c1a00;border:none}
+body.m3d .chip.cl{background:#00497d;color:#d1e4ff;border:none}body.m3d .chip.bo{background:#6b3b14;color:#ffdbcb;border:none}
+body.m3l .drop,body.m3d .drop{border-radius:16px;border-color:var(--outline)}
+
+/* ===== Dynamic Color: Farben aus dem Hintergrundbild (simuliert über Seed-Farben) ===== */
+body.m3l.dyn-green{--acc:#386a20;--tonal:#d7e8cd;--ontonal:#121f0e;--card:#eff2e8;--card2:#dfe4d7;--bg:#f8faf0;--nav:#eff2e8;--ind:#d7e8cd;--gold:#55624c;background:#dfe6d5}
+body.m3d.dyn-green{--acc:#9cd67d;--onacc:#0c3900;--tonal:#3a4b33;--ontonal:#d7e8cd;--card:#1e201a;--card2:#282b24;--bg:#11140e;--nav:#1e201a;--ind:#3a4b33;--gold:#bccbb0}
+body.m3l.dyn-blue{--acc:#0061a4;--tonal:#d1e4ff;--ontonal:#001d36;--card:#eef3fa;--card2:#dde3ea;--bg:#f8f9ff;--nav:#eef3fa;--ind:#d1e4ff;--gold:#535f70;background:#dbe2ec}
+body.m3d.dyn-blue{--acc:#9ecaff;--onacc:#003258;--tonal:#3b4858;--ontonal:#d7e3f7;--card:#1d2024;--card2:#272a2f;--bg:#111418;--nav:#1d2024;--ind:#3b4858;--gold:#bbc7db}
+body.m3l.dyn-orange{--acc:#8f4c00;--tonal:#ffdcc2;--ontonal:#2e1500;--card:#fcefe6;--card2:#f0e0d5;--bg:#fff8f5;--nav:#fcefe6;--ind:#ffdcc2;--gold:#735a48;background:#eee0d6}
+body.m3d.dyn-orange{--acc:#ffb77c;--onacc:#4c2700;--tonal:#5b4130;--ontonal:#ffdcc2;--card:#231a14;--card2:#2e241d;--bg:#19120c;--nav:#231a14;--ind:#5b4130;--gold:#e4bfa8}
+.themebar .sw{width:22px;height:22px;border-radius:50%;padding:0;border:2px solid #0000}
+.themebar .sw.on{border-color:#fff;outline:2px solid #000}
+
+</style><style>
+h2.lv{margin:40px 0 14px;font-size:20px}h2.lv span{font-size:13px;font-weight:400;opacity:.7;margin-left:8px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{background:var(--card);border-radius:16px;padding:10px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between;font-size:12px}
+.tile.big{grid-column:span 2}
+.huge{font-size:46px;font-weight:700;text-align:center;line-height:1}
+.fab{background:var(--tonal);color:var(--ontonal);padding:14px 18px;border-radius:16px;font-weight:600;box-shadow:0 3px 8px #0003}
+.pad{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.pad b{background:var(--card2);border-radius:14px;text-align:center;padding:13px 0;font-size:18px}
+.pad b.off{opacity:.25;text-decoration:line-through}.pad b.act{background:var(--acc);color:var(--onacc)}
+.drawer{background:var(--card);height:100%;width:82%;border-radius:0 16px 16px 0;padding:8px}
+.di{padding:12px 14px;border-radius:24px;font-size:14px}.di.on{background:var(--tonal);color:var(--ontonal);font-weight:600}
+.drawer hr{border:none;border-top:1px solid var(--outline);opacity:.4;margin:8px}
+.circle{width:130px;height:130px;border-radius:50%;background:var(--acc);color:var(--onacc);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:40px;margin-bottom:6px}
+</style></head><body class="m3l"><h1>Wizard Tracker – Layout-Varianten</h1>
+<p class="intro">Vier Layouts für die wichtigsten Screens: Start, Eingabe in der Runde, Punkte. Theme überall Material 3. Sag mir, welches Layout (oder welche Mischung) dir am besten gefällt, danach baue ich den Klick-Dummy.</p>
+<div class="themebar"><b>Material 3:</b>
+<button class="on" data-m="m3l">☀ Light</button><button data-m="m3d">☾ Dark</button>
+<span style="margin-left:14px;font-weight:600">Dynamic Color:</span>
+<button class="sw on" data-d="" title="Aus (Standard-Lila)" style="background:#6750a4"></button>
+<button class="sw" data-d="dyn-green" title="Hintergrundbild grün" style="background:#386a20"></button>
+<button class="sw" data-d="dyn-blue" title="Hintergrundbild blau" style="background:#0061a4"></button>
+<button class="sw" data-d="dyn-orange" title="Hintergrundbild orange" style="background:#8f4c00"></button>
+</div>
+<script>let M='m3l',D='';function ap(){document.body.className=M+' '+D;document.querySelectorAll('.themebar [data-m]').forEach(b=>b.classList.toggle('on',b.dataset.m===M));document.querySelectorAll('.themebar [data-d]').forEach(b=>b.classList.toggle('on',b.dataset.d===D))}
+document.addEventListener('click',e=>{const b=e.target.closest('.themebar button');if(!b)return;if(b.dataset.m)M=b.dataset.m;if(b.dataset.d!==undefined)D=b.dataset.d;ap()});addEventListener('DOMContentLoaded',ap)</script>
+
+<h2 class="lv">A · Liste <span>Zeilen mit + / −, Tab-Leiste unten (bisheriger Entwurf)</span></h2>
+<div class="grid">
+<div class="wrap"><div class="label">A1 · Start</div><div class="note">Laufendes Spiel oben, dann neues Spiel und Verlauf.</div>
+<div class="phone"><div class="status"><span>20:14</span><span>●●●</span></div>
+<div class="top"><h2>Wizard Tracker</h2><div class="ic">⚙</div></div>
+<div class="body">
+ <div class="card" style="background:var(--tonal)"><div class="mut">LAUFENDES SPIEL · ⏱ 1:12 h</div><div class="row" style="margin:6px 0"><b>Runde 10 / 15</b><span class="sp"></span></div>
+ <div class="row"><div class="av a1">F</div><div class="av a2">L</div><div class="av a3">M</div><div class="av a4">J</div></div>
+ <div class="btn" style="margin-top:10px">Weiterspielen</div></div>
+ <div class="btn gold">＋ Neues Spiel</div>
+ <div class="mut">LETZTE SPIELE</div>
+ <div class="card row"><span>🏆</span><div class="sp"><b>Paul</b> 180<div class="mut">07.11. · 4 Spieler · 69 min</div></div></div>
+ <div class="card row"><span>🏆</span><div class="sp"><b>Ben K.</b> 230<div class="mut">01.11.2025 · 4 Spieler · 112 min</div></div></div>
+</div>
+<div class="nav"><div class="on">🏠<br>Start</div><div>👥<br>Spieler</div><div>📊<br>Statistik</div><div>🕘<br>Verlauf</div><div>📖<br>Wissen</div></div>
+</div></div>
+<div class="wrap"><div class="label">A2 · Runde</div><div class="note">Eine Zeile pro Person mit + / −. Erst Ansagen, dann Stiche.</div>
+<div class="phone"><div class="status"><span>20:31</span><span>●●●</span></div>
+<div class="top"><div class="ic">☰</div><h2>Runde 10 · Ansagen</h2><span class="chip">⏱ 1:12</span></div>
+<div class="body">
+ <div class="card row"><div class="av a2">L<span class="bd st">▶</span></div><span class="who"><span class="nm">Lena</span><div class="mut"><span class="role-st">beginnt</span> · 140</div></span><div class="step"><b>−</b><span>2</span><b>＋</b></div></div>
+ <div class="card row"><div class="av a3">M</div><span class="who"><span class="nm">Max</span><div class="mut">90</div></span><div class="step"><b>−</b><span>3</span><b>＋</b></div></div>
+ <div class="card row"><div class="av a4">J</div><span class="who"><span class="nm">Jonas</span><div class="mut">60</div></span><div class="step"><b>−</b><span>1</span><b>＋</b></div></div>
+ <div class="card row"><div class="av a1">F<span class="bd dl">🃏</span></div><span class="who"><span class="nm">Alex</span><div class="mut"><span class="role-dl">Dealer</span> · 120</div></span><div class="step"><b>−</b><span>?</span><b>＋</b></div></div>
+ <div class="hint warn">Summe 6 von 10 · Alex nicht 4</div>
+ <div class="sp"></div><div class="btn">Weiter → Stiche</div>
+</div></div></div>
+<div class="wrap"><div class="label">A3 · Punkte</div><div class="note">Eigener Screen, erreichbar über ein Symbol oben.</div>
+<div class="phone"><div class="status"><span>20:46</span><span>●●●</span></div>
+<div class="top"><div class="ic">←</div><h2>Punkte</h2></div>
+<div class="body"><div class="card" style="padding:6px"><table>
+<tr><th>R</th><th><div class="av a1" style="margin:auto;width:22px;height:22px">F</div></th><th><div class="av a2" style="margin:auto;width:22px;height:22px">L</div></th><th><div class="av a3" style="margin:auto;width:22px;height:22px">M</div></th><th><div class="av a4" style="margin:auto;width:22px;height:22px">J</div></th></tr>
+<tr><td class="r">1</td><td class="pos">30</td><td class="pos">20</td><td class="neg">-10</td><td class="pos">20</td></tr>
+<tr><td class="r">2</td><td class="pos">60</td><td class="pos">50</td><td class="pos">20</td><td class="neg">10</td></tr>
+<tr><td class="r">3</td><td class="neg">50</td><td class="pos">90</td><td class="pos">50</td><td class="pos">40</td></tr>
+<tr><td class="r">4</td><td class="pos">80</td><td class="neg">70</td><td class="pos">90</td><td class="neg">30</td></tr>
+<tr><td class="r">5</td><td class="pos">110</td><td class="pos">100</td><td class="neg">80</td><td class="pos">60</td></tr>
+<tr><td class="r">6 💣</td><td class="neg">90</td><td class="pos">130</td><td class="pos">110</td><td class="neg">40</td></tr>
+<tr><td class="r">7</td><td class="pos">120</td><td class="neg">120</td><td class="neg">90</td><td class="pos">70</td></tr>
+<tr><td class="r">8 ☁</td><td class="neg">100</td><td class="pos">140</td><td class="neg">70</td><td class="neg">50</td></tr>
+<tr class="cur"><td class="r">9</td><td>2/2</td><td>2/2</td><td>4☁/4</td><td>1/0</td></tr>
+<tr class="tot"><td>Σ</td><td>100</td><td style="color:var(--gold)">140</td><td>70</td><td>50</td></tr>
+</table></div></div></div></div>
+</div>
+
+<h2 class="lv">B · Kacheln <span>Große Felder pro Person, Antippen = +1, Gesten statt kleiner Tasten</span></h2>
+<div class="grid">
+<div class="wrap"><div class="label">B1 · Start</div><div class="note">Große Kacheln statt Liste, Tab-Leiste unten.</div>
+<div class="phone"><div class="status"><span>20:14</span><span>●●●</span></div>
+<div class="top"><h2>Wizard Tracker</h2><div class="ic">⚙</div></div>
+<div class="body">
+ <div class="tiles">
+  <div class="tile big" style="background:var(--acc);color:var(--onacc)"><div style="font-size:12px;opacity:.8">Weiterspielen</div><div class="big">Runde 10</div><div style="font-size:11px;opacity:.8">4 Spieler · 1:12 h</div></div>
+  <div class="tile" style="background:var(--tonal);color:var(--ontonal)"><div class="big">＋</div>Neues Spiel</div>
+  <div class="tile"><div class="big">18</div><span class="mut">Spiele</span></div>
+  <div class="tile"><div class="big">🏆 6</div><span class="mut">deine Siege</span></div>
+  <div class="tile"><div class="big">64%</div><span class="mut">Treffer</span></div>
+ </div>
+</div>
+<div class="nav"><div class="on">🏠<br>Start</div><div>👥<br>Spieler</div><div>📊<br>Statistik</div><div>🕘<br>Verlauf</div><div>📖<br>Wissen</div></div>
+</div></div>
+<div class="wrap"><div class="label">B2 · Runde</div><div class="note">2×2-Raster. Kachel antippen = +1, nach unten wischen = −1. Die Zahl ist riesig, auch aus Entfernung lesbar.</div>
+<div class="phone"><div class="status"><span>20:31</span><span>●●●</span></div>
+<div class="top"><div class="ic">☰</div><h2>Runde 10 · Ansagen</h2><span class="chip">⏱ 1:12</span></div>
+<div class="body">
+ <div class="tiles">
+  <div class="tile" style="outline:2px solid var(--acc)"><div class="row"><div class="av a2">L<span class="bd st">▶</span></div><span class="who"><span class="nm">Lena</span><div class="mut">140</div></span></div><div class="huge">2</div><div class="mut">tippen +1 · wischen −1</div></div>
+  <div class="tile"><div class="row"><div class="av a3">M</div><span class="who"><span class="nm">Max</span><div class="mut">90</div></span></div><div class="huge">3</div></div>
+  <div class="tile"><div class="row"><div class="av a4">J</div><span class="who"><span class="nm">Jonas</span><div class="mut">60</div></span></div><div class="huge">1</div></div>
+  <div class="tile"><div class="row"><div class="av a1">F<span class="bd dl">🃏</span></div><span class="who"><span class="nm">Alex</span><div class="mut">Dealer · 120</div></span></div><div class="huge" style="opacity:.35">–</div><div class="mut" style="color:var(--bad)">nicht 4</div></div>
+ </div>
+ <div class="sp"></div>
+ <div class="row" style="justify-content:space-between"><span class="mut">Summe 6 / 10</span><div class="fab">→ Stiche</div></div>
+</div></div></div>
+<div class="wrap"><div class="label">B3 · Punkte</div><div class="note">Rangliste als Kacheln mit Trend, Tabelle über ein Symbol.</div>
+<div class="phone"><div class="status"><span>20:46</span><span>●●●</span></div>
+<div class="top"><div class="ic">←</div><h2>Stand nach Runde 9</h2><div class="ic">▦</div></div>
+<div class="body">
+ <div class="card row" style="background:var(--tonal)"><b class="big">1</b><div class="av a2">L</div><b class="sp">Lena</b><b class="big">140</b><span class="pos">▲20</span></div>
+ <div class="card row"><b class="big">2</b><div class="av a1">F</div><b class="sp">Alex</b><b class="big">100</b><span class="neg">▼20</span></div>
+ <div class="card row"><b class="big">3</b><div class="av a3">M</div><b class="sp">Max</b><b class="big">70</b><span class="neg">▼20</span></div>
+ <div class="card row"><b class="big">4</b><div class="av a4">J</div><b class="sp">Jonas</b><b class="big">50</b><span class="neg">▼20</span></div>
+ <div class="card"><div class="mut">VERLAUF</div><div class="spark"><i style="height:30%"></i><i style="height:45%"></i><i style="height:60%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:85%"></i><i style="height:80%"></i><i style="height:95%"></i><i style="height:100%"></i></div></div>
+</div></div></div>
+</div>
+
+<h2 class="lv">C · Tabelle zuerst <span>Der Punkteblock ist der Hauptscreen, eingetragen wird direkt in der Tabelle</span></h2>
+<div class="grid">
+<div class="wrap"><div class="label">C1 · Start</div><div class="note">Schlank: Weiterspielen, Neues Spiel, Verlauf als Liste. Menü statt Tab-Leiste.</div>
+<div class="phone"><div class="status"><span>20:14</span><span>●●●</span></div>
+<div class="top"><div class="ic">☰</div><h2>Wizard Tracker</h2></div>
+<div class="body">
+ <div class="btn">▶ Weiterspielen · Runde 10</div>
+ <div class="btn sec">＋ Neues Spiel</div>
+ <div class="mut" style="margin-top:6px">VERLAUF</div>
+ <div class="card row"><span class="sp">07.11.2026</span><span class="mut">Paul 180</span></div>
+ <div class="card row"><span class="sp">01.11.2025</span><span class="mut">Ben K. 230</span></div>
+ <div class="card row"><span class="sp">23.05.2025</span><span class="mut">Ben K. 210</span></div>
+ <div class="card row"><span class="sp">01.05.2025</span><span class="mut">Max 160</span></div>
+</div></div></div>
+<div class="wrap"><div class="label">C2 · Runde = Tabelle</div><div class="note">Wie ein Papierblock. Die aktuelle Zeile antippen, unten erscheint ein Ziffernfeld. Alles auf einem Screen, kein Wechseln.</div>
+<div class="phone"><div class="status"><span>20:31</span><span>●●●</span></div>
+<div class="top"><div class="ic">☰</div><h2>Runde 10</h2><span class="chip">⏱ 1:12</span></div>
+<div class="body">
+ <div class="card" style="padding:6px">
+ <table><tr><th>R</th><th>L ▶</th><th>M</th><th>J</th><th>F 🃏</th></tr>
+ <tr><td class="r">7</td><td>120</td><td>90</td><td>70</td><td>120</td></tr>
+ <tr><td class="r">8</td><td>140</td><td>70</td><td>50</td><td>100</td></tr>
+ <tr><td class="r">9</td><td>140</td><td>70</td><td>50</td><td>100</td></tr>
+ <tr class="cur"><td class="r">10</td><td>2/·</td><td>3/·</td><td>1/·</td><td style="outline:2px solid var(--acc)">?/·</td></tr>
+ <tr class="tot"><td>Σ</td><td>140</td><td>70</td><td>50</td><td>100</td></tr></table></div>
+ <div class="hint warn">Alex: Ansage, nicht 4</div>
+ <div class="sp"></div>
+ <div class="pad"><b>0</b><b>1</b><b>2</b><b>3</b><b class="off">4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>10</b><b class="act">✓</b></div>
+</div></div></div>
+<div class="wrap"><div class="label">C3 · Menü</div><div class="note">Statistik, Spieler und Wissen über das Seitenmenü statt Tab-Leiste.</div>
+<div class="phone"><div class="status"><span>20:46</span><span>●●●</span></div>
+<div class="body" style="padding:0"><div class="drawer">
+ <h3 style="margin:14px 8px">Wizard Tracker</h3>
+ <div class="di on">🎲 Spiel</div><div class="di">👥 Spieler</div><div class="di">📊 Statistik</div><div class="di">🕘 Verlauf</div><div class="di">📖 Wissen</div><hr><div class="di">⇅ Import & Export</div><div class="di">⚙ Einstellungen</div>
+</div></div></div></div>
+</div>
+
+<h2 class="lv">D · Fokus <span>Immer nur eine Person, große Zifferntasten, springt automatisch weiter</span></h2>
+<div class="grid">
+<div class="wrap"><div class="label">D1 · Start</div><div class="note">Großer Startknopf, darunter Highlights der letzten Partie.</div>
+<div class="phone"><div class="status"><span>20:14</span><span>●●●</span></div>
+<div class="top"><h2>Wizard Tracker</h2><div class="ic">⚙</div></div>
+<div class="body" style="justify-content:center;align-items:center;text-align:center">
+ <div class="circle">▶<div style="font-size:13px">Runde 10</div></div>
+ <div class="mut">4 Spieler · 1:12 h · Lena führt</div>
+ <div class="btn sec" style="width:100%">＋ Neues Spiel</div>
+ <div class="card" style="width:100%;text-align:left;font-size:12px">Letzte Partie: 🏆 Paul 180 · 69 min</div>
+</div>
+<div class="nav"><div class="on">🏠<br>Start</div><div>👥<br>Spieler</div><div>📊<br>Statistik</div><div>🕘<br>Verlauf</div><div>📖<br>Wissen</div></div>
+</div></div>
+<div class="wrap"><div class="label">D2 · Runde</div><div class="note">Oben die Reihenfolge als Punkte, in der Mitte die Person, die dran ist. Zahl antippen → nächste Person. Ideal, wenn eine Person für alle einträgt.</div>
+<div class="phone"><div class="status"><span>20:31</span><span>●●●</span></div>
+<div class="top"><div class="ic">☰</div><h2>Runde 10 · Ansagen</h2><span class="chip">⏱ 1:12</span></div>
+<div class="body">
+ <div class="row" style="justify-content:center;gap:10px"><div class="av a2" style="opacity:.5">L</div><div class="av a3" style="opacity:.5">M</div><div class="av a4" style="opacity:.5">J</div><div class="av a1" style="outline:3px solid var(--acc)">F</div></div>
+ <div class="row mut" style="justify-content:center;gap:16px;font-size:11px"><span>2</span><span>3</span><span>1</span><span>…</span></div>
+ <div style="text-align:center;margin-top:6px"><div class="av a1" style="width:56px;height:56px;margin:auto;font-size:22px">F<span class="bd dl">🃏</span></div><div class="big" style="margin-top:6px">Alex</div><div class="mut">Dealer · sagt als Letzter an · 120 Pkt</div></div>
+ <div class="hint warn" style="text-align:center">nicht 4 (Summe wäre 10)</div>
+ <div class="sp"></div>
+ <div class="pad"><b>0</b><b>1</b><b>2</b><b>3</b><b class="off">4</b><b>5</b><b>6</b><b>7</b><b>8</b><b>9</b><b>10</b><b>↶</b></div>
+</div></div></div>
+<div class="wrap"><div class="label">D3 · Rundenergebnis</div><div class="note">Nach jeder Runde kurz: wer getroffen hat und wie sich der Stand ändert. Dann weiter.</div>
+<div class="phone"><div class="status"><span>20:46</span><span>●●●</span></div>
+<div class="top"><h2>Runde 9 fertig</h2></div>
+<div class="body">
+ <div class="card row"><div class="av a2">L</div><b class="sp">Lena</b><span class="pos">+40</span><b>140</b></div>
+ <div class="card row"><div class="av a1">F</div><b class="sp">Alex</b><span class="neg">−20</span><b>100</b></div>
+ <div class="card row"><div class="av a3">M</div><b class="sp">Max</b><span class="neg">−20</span><b>70</b></div>
+ <div class="card row"><div class="av a4">J</div><b class="sp">Jonas</b><span class="neg">−20</span><b>50</b></div>
+ <div class="hint">☁ Wolke: Max 3 → 4 · 💣 keine</div>
+ <div class="sp"></div><div class="btn">Runde 10 starten</div><div class="btn sec">Tabelle ansehen</div>
+</div></div></div>
+</div>
+</body></html>
