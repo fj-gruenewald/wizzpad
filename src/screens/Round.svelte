@@ -23,6 +23,12 @@
   const fi = $derived(Math.min(ui.fi, n - 1));
   const cur = $derived(o[fi]);
 
+  // Listenansicht: 0 ist der kleinste Wert, also gleich vorausfüllen statt mit „·“ zu starten (nicht bei verdeckten Ansagen, sonst wären sie sofort „abgegeben“)
+  $effect(() => {
+    if (app.set.entry !== "list" || (ph === "bid" && g.hid)) return;
+    for (const p of o) if (rd[key][p] == null) rd[key][p] = 0;
+  });
+
   const role = (i: number) => (i === 0 ? "st" : i === n - 1 ? "dl" : "") as "" | "st" | "dl";
   const fb = (p: string) => forbiddenBid(g, rd, p);
 
