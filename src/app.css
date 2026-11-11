@@ -150,3 +150,6 @@ body.dark{background:var(--bg)}
 *{scrollbar-width:none}
 *::-webkit-scrollbar{display:none}
 html,body{overscroll-behavior:none}
+/* Android-Tasten: Bereich unter der Navigation (Safe-Area unten) in Navigationsfarbe statt App-Hintergrund */
+#ph:has(.nav){background:linear-gradient(to top,var(--s2) calc(env(safe-area-inset-bottom) / var(--z,1)),var(--bg) 0)}
+@media (max-width:560px){html:has(.nav),body:has(.nav){background:var(--s2)}}
