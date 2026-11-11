@@ -64,7 +64,8 @@ body.dark{background:#000}
 .tog.on{background:var(--p);border-color:var(--p)}.tog.on:after{left:24px;top:2px;width:24px;height:24px;background:var(--op)}
 .scrim{position:absolute;inset:0;background:#0007;z-index:5;display:flex;align-items:flex-end}
 .sheet{background:var(--s1);width:100%;border-radius:28px 28px 0 0;padding:10px 18px 20px;display:flex;flex-direction:column;gap:10px;max-height:85%;overflow-y:auto}
-.sheet:before{content:"";width:32px;height:4px;border-radius:2px;background:var(--ol);opacity:.5;margin:0 auto 6px}
+/* kein Greif-Strich: Blätter lassen sich nicht ziehen, nur antippen */
+.sheet{padding-top:20px}
 .sheet h2{font-size:20px;font-weight:400}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th,td{padding:6px 2px;text-align:center}
@@ -154,10 +155,10 @@ html,body{overscroll-behavior:none}
 #ph:has(.nav){background:linear-gradient(to top,var(--s2) calc(env(safe-area-inset-bottom) / var(--z,1)),var(--bg) 0)}
 @media (max-width:560px){html:has(.nav),body:has(.nav){background:var(--s2)}}
 /* Neues Spiel: Ziehgriff vor den Spielern */
-.grip{display:flex;align-items:center;justify-content:center;width:32px;height:48px;margin:-8px 0 -8px -8px;color:var(--tv);touch-action:none;cursor:grab;flex:none}
-.grip svg{width:24px;height:24px;fill:currentColor}
-.li.drag{position:relative;z-index:2;box-shadow:0 4px 12px rgba(0,0,0,.25);background:var(--s3)}
-.li.drag .grip{cursor:grabbing;color:var(--p)}
+.grip{display:flex;align-items:center;justify-content:center;width:32px;height:48px;margin:-8px 0 -8px -8px;color:var(--ol);opacity:.7;touch-action:none;cursor:grab;flex:none}
+.grip svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+.li.drag{position:relative;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.15);background:var(--s3)}
+.li.drag .grip{cursor:grabbing;color:var(--p);opacity:1}
 /* Radio-Kreis im Auswahlblatt (Einzelauswahl) und Dropdown-Feld mit Untertitel */
 .rb{width:20px;height:20px;border:2px solid var(--ol);border-radius:50%;flex:none;position:relative}
 .rb.on{border-color:var(--p)}
