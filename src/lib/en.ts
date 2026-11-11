@@ -14,7 +14,7 @@ export const EN: Record<string, string> = {
 
   // Neues Spiel
   "Spieler in Sitzreihenfolge antippen": "Tap players in seating order", "beginnt": "starts", "in Runde 1": "in round 1", "Dealer": "Dealer",
-  "Platz {n}": "Seat {n}", "hoch": "up", "runter": "down", "entfernen": "remove", "Neue Person": "New person", "Maximal 6 Spieler": "At most 6 players",
+  "Platz {n}": "Seat {n}", "Ziehen zum Verschieben": "Drag to reorder", "entfernen": "remove", "Neue Person": "New person", "Maximal 6 Spieler": "At most 6 players",
   "Spielmodus": "Game mode", "Nur mit 3–4 Personen": "Only with 3–4 players", "Regeln": "Rules", "Plus/minus Eins": "Plus/minus one",
   "nicht mit verdeckten Ansagen": "not with hidden bids", "Nur im klassischen Modus": "Only in classic mode", "Jubiläumsedition": "Anniversary edition",
   "Wolke & Bombe in der Runde": "Cloud & Bomb in the round", "nicht mit Sonderkarten spielbar": "not playable with special cards", "Ansagen": "Bids",

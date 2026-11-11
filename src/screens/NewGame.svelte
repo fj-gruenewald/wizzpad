@@ -6,24 +6,44 @@
   import { MODES } from "../lib/logic";
   import { addPlayer, startGame } from "../lib/actions";
   import type { Mode } from "../lib/types";
+  import { flip } from "svelte/animate";
   const rest = $derived(app.players.filter((p) => !p.deleted && !ui.sel.includes(p.id)));
   const n = $derived(ui.sel.length);
   const classic = $derived(ui.nm.mode === "classic");
   $effect(() => { const m = MODES[ui.nm.mode]; if (m.ok && n && !m.ok(n)) ui.nm.mode = "classic"; });
   function toggle(id: string) { const i = ui.sel.indexOf(id); if (i >= 0) ui.sel.splice(i, 1); else if (ui.sel.length < 6) ui.sel.push(id); else toast(t("Maximal 6 Spieler")); }
-  function move(i: number, d: number) { const j = i + d; if (j < 0 || j >= ui.sel.length) return; [ui.sel[i], ui.sel[j]] = [ui.sel[j], ui.sel[i]]; }
+  // Ziehen am Griff: Zeile folgt dem Finger, Reihenfolge ändert sich live beim Überfahren der Nachbarzeile
+  let list: HTMLDivElement;
+  let drag = $state<{ id: string; y0: number; dy: number } | null>(null);
+  function down(e: PointerEvent, id: string) {
+    e.preventDefault(); (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    drag = { id, y0: e.clientY, dy: 0 };
+  }
+  function moveP(e: PointerEvent) {
+    if (!drag) return;
+    drag.dy = e.clientY - drag.y0;
+    const rows = [...list.querySelectorAll<HTMLElement>(".li")], i = ui.sel.indexOf(drag.id), r = rows[i];
+    if (!r) return;
+    const z = parseFloat(getComputedStyle(document.getElementById("ph")!).zoom || "1") || 1, h = r.offsetHeight * z;
+    const j = drag.dy > h / 2 ? i + 1 : drag.dy < -h / 2 ? i - 1 : i;
+    if (j !== i && j >= 0 && j < ui.sel.length) { ui.sel.splice(i, 1); ui.sel.splice(j, 0, drag.id); drag.y0 += (j - i) * h; drag.dy = e.clientY - drag.y0; }
+  }
+  const up = () => (drag = null);
 </script>
 <Bar title={t("Neues Spiel")} back={() => go("home")} />
 <div class="main">
   <div class="cap">{t("Spieler in Sitzreihenfolge antippen")}</div>
+  <div bind:this={list}>
   {#each ui.sel as id, i (id)}
-    <div class="li">
+    <div class="li" class:drag={drag?.id === id} style={drag?.id === id ? `transform:translateY(${drag.dy / (parseFloat(getComputedStyle(document.getElementById("ph")!).zoom || "1") || 1)}px)` : ""} animate:flip={{ duration: drag?.id === id ? 0 : 150 }}>
+      <span class="grip" role="button" tabindex="-1" aria-label={t("Ziehen zum Verschieben")} onpointerdown={(e) => down(e, id)} onpointermove={moveP} onpointerup={up} onpointercancel={up}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span>
       <Avatar {id} role={i === 0 ? "st" : i === n - 1 && n > 1 ? "dl" : ""} />
       <div class="sp"><span class="nm">{player(id).name}</span>
         <span class="sub">{#if i === 0}<span class="rs">{t("beginnt")}</span> {t("in Runde 1")}{:else if i === n - 1 && n > 1}<span class="rd">{t("Dealer")}</span> {t("in Runde 1")}{:else}{t("Platz {n}", { n: i + 1 })}{/if}</span></div>
-      <button class="ib" onclick={() => move(i, -1)} aria-label={t("hoch")}>↑</button><button class="ib" onclick={() => move(i, 1)} aria-label={t("runter")}>↓</button><button class="ib" onclick={() => toggle(id)} aria-label={t("entfernen")}>✕</button>
+      <button class="ib" onclick={() => toggle(id)} aria-label={t("entfernen")}>✕</button>
     </div>
   {/each}
+  </div>
   <div class="chips">{#each rest as p (p.id)}<button class="chip" onclick={() => toggle(p.id)}>＋ {p.name}</button>{/each}<button class="chip" onclick={() => addPlayer()}>＋ {t("Neue Person")}</button></div>
 
   <div class="cap">{t("Spielmodus")}</div>

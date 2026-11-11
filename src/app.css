@@ -153,3 +153,8 @@ html,body{overscroll-behavior:none}
 /* Android-Tasten: Bereich unter der Navigation (Safe-Area unten) in Navigationsfarbe statt App-Hintergrund */
 #ph:has(.nav){background:linear-gradient(to top,var(--s2) calc(env(safe-area-inset-bottom) / var(--z,1)),var(--bg) 0)}
 @media (max-width:560px){html:has(.nav),body:has(.nav){background:var(--s2)}}
+/* Neues Spiel: Ziehgriff vor den Spielern */
+.grip{display:flex;align-items:center;justify-content:center;width:32px;height:48px;margin:-8px 0 -8px -8px;color:var(--tv);touch-action:none;cursor:grab;flex:none}
+.grip svg{width:24px;height:24px;fill:currentColor}
+.li.drag{position:relative;z-index:2;box-shadow:0 4px 12px rgba(0,0,0,.25);background:var(--s3)}
+.li.drag .grip{cursor:grabbing;color:var(--p)}
