@@ -40,9 +40,9 @@ await shot("10-table2");
 await click("Game over"); await shot("11-gameover"); await click("Beenden & Ergebnis"); await shot("12-end");
 await click("Fertig"); await click("Statistik", ".nav div"); await shot("13-stats");
 await click("Spieler", ".nav div"); await click("Max"); await shot("14-profile");
-await click("←"); await click("Wissen", ".nav div"); await click("Wolke"); await shot("15-card");
+await p.click('[aria-label="Zurück"]'); await new Promise((r) => setTimeout(r, 120)); await click("Wissen", ".nav div"); await click("Wolke"); await shot("15-card");
 // Person anlegen über den app-eigenen Dialog (prompt() gibt es im Obsidian-Web-Viewer nicht)
-await click("←"); await click("Spieler", ".nav div"); await p.click('[aria-label="Spieler anlegen"]'); await new Promise((r) => setTimeout(r, 150));
+await p.click('[aria-label="Zurück"]'); await new Promise((r) => setTimeout(r, 120)); await click("Spieler", ".nav div"); await p.click('[aria-label="Spieler anlegen"]'); await new Promise((r) => setTimeout(r, 150));
 await p.type(".sheet input", "Testperson"); await shot("16-dialog"); await click("Anlegen");
 if (!(await p.evaluate(() => document.body.innerText.includes("Testperson")))) throw new Error("Neue Person fehlt");
 // Spiel aus dem Verlauf als Bild teilen/speichern
