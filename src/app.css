@@ -158,3 +158,8 @@ html,body{overscroll-behavior:none}
 .grip svg{width:24px;height:24px;fill:currentColor}
 .li.drag{position:relative;z-index:2;box-shadow:0 4px 12px rgba(0,0,0,.25);background:var(--s3)}
 .li.drag .grip{cursor:grabbing;color:var(--p)}
+/* Radio-Kreis im Auswahlblatt (Einzelauswahl) und Dropdown-Feld mit Untertitel */
+.rb{width:20px;height:20px;border:2px solid var(--ol);border-radius:50%;flex:none;position:relative}
+.rb.on{border-color:var(--p)}
+.rb.on:after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--p)}
+.dd .sub{display:block;font-size:12px;color:var(--tv);white-space:normal}

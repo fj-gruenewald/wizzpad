@@ -2,6 +2,7 @@
   import { t } from "../lib/i18n";
   import Avatar from "../ui/Avatar.svelte";
   import Bar from "../ui/Bar.svelte";
+  import Sheet from "../ui/Sheet.svelte";
   import { app, go, player, toast, ui } from "../lib/store.svelte";
   import { MODES } from "../lib/logic";
   import { addPlayer, startGame } from "../lib/actions";
@@ -47,12 +48,7 @@
   <div class="chips">{#each rest as p (p.id)}<button class="chip" onclick={() => toggle(p.id)}>＋ {p.name}</button>{/each}<button class="chip" onclick={() => addPlayer()}>＋ {t("Neue Person")}</button></div>
 
   <div class="cap">{t("Spielmodus")}</div>
-  {#each Object.entries(MODES) as [k, m]}
-    {@const dis = !!(m.ok && n && !m.ok(n))}
-    <button class="li" style="border:none;font:inherit;color:inherit;text-align:left;{dis ? 'opacity:.4' : ''}" onclick={() => (dis ? toast(t("Nur mit 3–4 Personen")) : (ui.nm.mode = k as Mode))}>
-      <span style="font-size:18px">{ui.nm.mode === k ? "◉" : "○"}</span><div class="sp">{t(m.n)}<span class="sub">{t(m.d)}</span></div>
-    </button>
-  {/each}
+  <button class="dd" style="flex:none;width:100%;padding:12px 16px;font-size:16px" onclick={() => (ui.sheet = "mode")}><span>{t(MODES[ui.nm.mode ?? "classic"].n)}<span class="sub">{t(MODES[ui.nm.mode ?? "classic"].d)}</span></span><i>▾</i></button>
   <div class="cap">{t("Regeln")}</div>
   <button class="li" style="border:none;font:inherit;color:inherit;text-align:left;{ui.nm.hid ? 'opacity:.4' : ''}" onclick={() => (ui.nm.pm1 = !ui.nm.pm1)}>
     <div class="sp">{t("Plus/minus Eins")}{#if ui.nm.hid}<span class="sub">{t("nicht mit verdeckten Ansagen")}</span>{/if}</div><div class="tog" class:on={ui.nm.pm1 && !ui.nm.hid}></div></button>
@@ -62,3 +58,14 @@
   <div class="chips">{#each [["", "Offen"], ["tip", "Verdeckter Tipp"], ["secret", "Geheime Vorhersage"]] as [k, l]}<button class="chip" class:on={ui.nm.hid === k} onclick={() => (ui.nm.hid = k as "" | "tip" | "secret")}>{t(l)}</button>{/each}</div>
 </div>
 <div class="foot"><button class="btn" disabled={n < 2} onclick={startGame}>{t("Spiel starten ({n} Spieler)", { n })}</button></div>
+{#if ui.sheet === "mode"}
+  <Sheet>
+    <h2>{t("Spielmodus")}</h2>
+    {#each Object.entries(MODES) as [k, m]}
+      {@const dis = !!(m.ok && n && !m.ok(n))}
+      <button class="li" style={dis ? "opacity:.4" : ""} onclick={() => (dis ? toast(t("Nur mit 3–4 Personen")) : ((ui.nm.mode = k as Mode), (ui.sheet = null)))}>
+        <span class="rb" class:on={ui.nm.mode === k}></span><span class="sp">{t(m.n)}<span class="sub">{t(m.d)}</span></span>
+      </button>
+    {/each}
+  </Sheet>
+{/if}
