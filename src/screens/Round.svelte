@@ -56,7 +56,6 @@
 <!-- Zurück → Punkteübersicht (Eingaben bleiben erhalten, „Runde n ▶“ führt zurück); von dort Zurück → Start -->
 <div class="bar"><button class="ib back" onclick={() => go("table")} aria-label={tr("Zurück")}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg></button><h1>{tr("Runde {r}", { r })} · {tr(ph === "bid" ? "Ansagen" : "Stiche")}</h1>{#if g.mode === "maximus"}<span class="chip">{tr(MAXIMUS_TRUMP[r - 1] ?? "")}</span>{/if}</div>
 <div class="main">
-  <div class="row mut" style="justify-content:space-between"><span>{tr("▶ {a} beginnt · 🃏 {d}", { a: player(o[0]).name, d: player(o[n - 1]).name })}</span>{#if app.set.timer}<span>⏱ {dur(ui.now - g.start)}</span>{/if}</div>
   {#if app.set.entry !== "focus"}{@render specials()}{/if}
 
   {#if app.set.entry === "list"}
@@ -82,8 +81,7 @@
       {/each}
     </div>
   {:else}
-    <div class="dots">{#each o as q, i (q)}<Avatar id={q} cls={i === fi ? "c" : rd[key][q] != null ? "d" : ""} onclick={() => (ui.fi = i)} />{/each}</div>
-    <div class="dots mut">{#each o as q (q)}<span style="width:36px;text-align:center">{shown(q)}</span>{/each}</div>
+    <div class="dots">{#each o as q, i (q)}<div class="dot"><Avatar id={q} cls={i === fi ? "c" : rd[key][q] != null ? "d" : ""} onclick={() => (ui.fi = i)} /><span class="mut">{shown(q)}</span></div>{/each}</div>
     <div style="text-align:center;margin:4px 0">
       <div style="display:inline-block"><Avatar id={cur} role={role(fi)} big /></div>
       <div class="big" style="margin-top:4px">{player(cur).name}</div><div class="mut">{@html sub(cur, fi)}</div>
